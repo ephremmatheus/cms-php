@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Login</title>
+</head>
+<body>
+    <h2>Login</h2>
+    <div style="color: red;">{mensagem}</div>
+    <form method="post" action="index.php?class=LoginForm&method=logar">
+        <label>E-mail</label>
+        <input name="email" type="email" value="{email}" required />
+        <br><br>
+        <label>Senha</label>
+        <input name="senha" type="password" required />
+        <br><br>
+        <input type="submit" value="Entrar" />
+    </form>
+    <p><a href="index.php?class=RegistroForm">Não tem conta? Cadastre-se</a></p>
+</body>
+</html>
