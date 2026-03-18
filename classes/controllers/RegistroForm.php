@@ -1,5 +1,5 @@
 <?php
-require_once 'classes/Usuario.php';
+require_once __DIR__ . '/../models/Usuario.php';
 
 class RegistroForm
 {
@@ -9,7 +9,7 @@ class RegistroForm
 
     public function __construct()
     {
-        $this->html = file_get_contents('html/registro.html');
+        $this->html = file_get_contents(__DIR__ . '/../../html/registro.html');
         $this->data = ['nome' => '', 'email' => ''];
         $this->mensagem = '';
     }
