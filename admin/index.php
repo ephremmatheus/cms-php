@@ -21,7 +21,7 @@ if (class_exists($classe)) {
     if (!empty($method) && method_exists($classe, $method)) {
         $pagina->$method($_REQUEST);
     }
-    $pagina->show();
+    $pagina->show($_REQUEST);
 } else {
     echo "Página não encontrada.";
 }

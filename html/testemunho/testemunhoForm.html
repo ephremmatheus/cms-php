@@ -1,0 +1,46 @@
+<form enctype="multipart/form-data" method="post" action="index.php?class=TestemunhoForm&method=save">
+
+<div class="container-fluid">
+
+    <div class="mb-3">
+        <label class="form-label">Código</label>
+        <input name="codigo_testemunho" readonly class="form-control" value="{codigo_testemunho}" style="background-color: #ccc;">
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Nome</label>
+        <input name="nome" class="form-control" value="{nome}">
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Função</label>
+        <input name="funcao" class="form-control" value="{funcao}">
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Título</label>
+        <input name="titulo" class="form-control" value="{titulo}">
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Descrição</label>
+        <textarea name="descricao" class="form-control">{descricao}</textarea>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Foto (URL)</label>
+        <input name="foto" class="form-control" value="{foto}">
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Imagem de Fundo (URL)</label>
+        <input name="imagem_fundo" class="form-control" value="{imagem_fundo}">
+    </div>
+
+    <div class="d-grid">
+        <button class="btn btn-primary">Salvar</button>
+    </div>
+
+</div>
+
+</form>

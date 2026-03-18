@@ -1,24 +1,115 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 <head>
-    <meta charset="utf-8" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro</title>
+
+    <!-- Bootstrap + Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+    <style>
+        body {
+            background: linear-gradient(135deg, #00c6ff, #0a3d91);
+            height: 100vh;
+        }
+
+        .card {
+            border-radius: 15px;
+        }
+
+        .form-control:focus {
+            box-shadow: none;
+            border-color: #00c6ff;
+        }
+
+        .btn-custom {
+            background: linear-gradient(90deg, #00c6ff, #0072ff);
+            color: #fff;
+            border: none;
+        }
+
+        .btn-custom:hover {
+            opacity: 0.9;
+        }
+
+        .input-group-text {
+            cursor: pointer;
+            background-color: #f8f9fa;
+        }
+    </style>
 </head>
-<body>
-    <h2>Cadastrar Usuário</h2>
-    <div style="color: red;">{mensagem}</div>
-    <form method="post" action="index.php?class=RegistroForm&method=salvar">
-        <label>Nome</label>
-        <input name="nome" type="text" value="{nome}" required />
-        <br><br>
-        <label>E-mail</label>
-        <input name="email" type="email" value="{email}" required />
-        <br><br>
-        <label>Senha</label>
-        <input name="senha" type="password" required />
-        <br><br>
-        <input type="submit" value="Cadastrar" />
-    </form>
-    <p><a href="index.php?class=LoginForm">Já tem conta? Faça login</a></p>
+
+<body class="d-flex align-items-center justify-content-center">
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-6 col-lg-4">
+            
+            <div class="card shadow p-4">
+                <h2 class="text-center mb-4 text-primary">Cadastrar</h2>
+
+                <div class="text-danger text-center mb-3">{mensagem}</div>
+
+                <form method="post" action="index.php?class=RegistroForm&method=salvar">
+
+                    <div class="mb-3">
+                        <label class="form-label">Login</label>
+                        <input name="login" type="text" class="form-control" value="{login}" required />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Senha</label>
+                        <div class="input-group">
+                            <input id="senhaCadastro" name="senha" type="password" class="form-control" required>
+                            <span class="input-group-text" onclick="toggleSenha('senhaCadastro', this)">
+                                <i class="bi bi-eye"></i>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Confirmar Senha</label>
+                        <div class="input-group">
+                            <input id="confirmarSenha" name="confirmar_senha" type="password" class="form-control" required>
+                            <span class="input-group-text" onclick="toggleSenha('confirmarSenha', this)">
+                                <i class="bi bi-eye"></i>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="d-grid mb-3">
+                        <input type="submit" value="Cadastrar" class="btn btn-custom">
+                    </div>
+
+                    <div class="text-center">
+                        <a href="index.php?class=LoginForm" class="text-light">Já tenho conta</a>
+                    </div>
+
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+function toggleSenha(id, el) {
+    const input = document.getElementById(id);
+    const icon = el.querySelector('i');
+
+    if (input.type === "password") {
+        input.type = "text";
+        icon.classList.remove("bi-eye");
+        icon.classList.add("bi-eye-slash");
+    } else {
+        input.type = "password";
+        icon.classList.remove("bi-eye-slash");
+        icon.classList.add("bi-eye");
+    }
+}
+</script>
+
 </body>
 </html>

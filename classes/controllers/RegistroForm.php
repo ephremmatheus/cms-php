@@ -10,25 +10,51 @@ class RegistroForm
     public function __construct()
     {
         $this->html = file_get_contents(__DIR__ . '/../../html/registro.html');
-        $this->data = ['nome' => '', 'email' => ''];
+        $this->data = ['login' => ''];
         $this->mensagem = '';
     }
 
     public function salvar($param)
     {
         try {
-            // Verifica se e-mail já existe
-            $existe = Usuario::findByEmail($param['email']);
-            if ($existe) {
-                $this->mensagem = "Este e-mail já está cadastrado.";
-                $this->data = $param; // Mantém os dados no form
+            $login = $param['login'];
+            $senha = $param['senha'];
+            $confirmar = $param['confirmar_senha'];
+
+            // Mantém login preenchido
+            $this->data['login'] = $login;
+
+            // 🔴 Validação: senha mínima
+            if (strlen($senha) < 6) {
+                $this->mensagem = "A senha deve ter pelo menos 6 caracteres.";
                 return;
             }
 
-            Usuario::save($param);
-            // Salvo com sucesso, redireciona pro login
+            // 🔴 Validação: confirmar senha
+            if ($senha !== $confirmar) {
+                $this->mensagem = "As senhas não coincidem.";
+                return;
+            }
+
+            // 🔴 Validação: login duplicado
+            $existe = Usuario::findByLogin($login);
+            if ($existe) {
+                $this->mensagem = "Este login já está cadastrado.";
+                return;
+            }
+
+            // Salvar
+            $usuario = [
+                'login' => $login,
+                'senha' => $senha
+            ];
+
+            Usuario::save($usuario);
+
+            // Redireciona
             header("Location: index.php?class=LoginForm");
             exit;
+
         } catch (Exception $e) {
             $this->mensagem = "Erro ao salvar: " . $e->getMessage();
         }
@@ -36,9 +62,9 @@ class RegistroForm
 
     public function show()
     {
-        $this->html = str_replace('{nome}', $this->data['nome'], $this->html);
-        $this->html = str_replace('{email}', $this->data['email'], $this->html);
+        $this->html = str_replace('{login}', $this->data['login'], $this->html);
         $this->html = str_replace('{mensagem}', $this->mensagem, $this->html);
+
         print $this->html;
     }
 }
