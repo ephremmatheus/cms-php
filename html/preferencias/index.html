@@ -1,0 +1,23 @@
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Título Landing</th>
+        <th>Telefone</th>
+        <th>Ações</th>
+    </tr>
+
+    <?php foreach ($preferencias as $p): ?>
+    <tr>
+        <td><?= $p['id'] ?></td>
+        <td><?= htmlspecialchars($p['titulo_landing_page'] ?? '') ?></td>
+        <td><?= htmlspecialchars($p['telefone_contato'] ?? '') ?></td>
+
+        <td>
+            <a href="index.php?class=PreferenciaController&method=form&id=<?= $p['id'] ?>">Editar</a>
+            <a href="index.php?class=PreferenciaController&method=delete&id=<?= $p['id'] ?>">Excluir</a>
+        </td>
+    </tr>
+    <?php endforeach; ?>
+</table>
+
+<a href="index.php?class=PreferenciaController&method=form">Nova Preferência</a>
