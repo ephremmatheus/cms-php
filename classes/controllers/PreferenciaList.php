@@ -42,6 +42,18 @@ class PreferenciaList {
     }
 
     public function show(){
+        $mensagem = '';
+
+        if (!empty($_GET['success'])) {
+            $mensagem = '
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    Registro salvo com sucesso!
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            ';
+        }
+
+        $this->html = str_replace('{mensagem}', $mensagem, $this->html);
         $this->load();
         print $this->html;
     }

@@ -47,7 +47,8 @@ require_once __DIR__ .  '/../models/Preferencia.php';
             try{
                 Preferencia::save($param);
                 $this->data = $param;
-                print "Preferencia salva com sucesso";
+                header("Location: index.php?class=PreferenciaList&success=1");
+                exit;
             } catch (Exception $e){
                 print $e->getMessage();
             }
