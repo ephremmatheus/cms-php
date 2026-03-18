@@ -1,0 +1,30 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Listagem de Preferências</title>
+    <link href="css/list.css" rel="stylesheet" type="text/css" media="screen"/>
+</head>
+<body>
+    <header>
+    </header>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Título Landing</th>
+                <th>Telefone</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {items}
+        </tbody>
+    </table>
+
+    <button onclick="window.location='index.php?class=PreferenciaForm&method=form'">
+        <img src="img/insert.png" style="width:24px; vertical-align: middle;">
+        Nova Preferência
+    </button>
+</body>
+</html>

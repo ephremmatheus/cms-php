@@ -1,43 +1,75 @@
-<form method="POST" action="index.php?class=PreferenciaController&method=save">
+<form method="POST" action="index.php?class=PreferenciaForm&method=save">
 
-    <input type="hidden" name="id" value="<?= $data['id'] ?? '' ?>">
+    <input name="id" type="hidden" readonly="1" value="{id}">
 
     <h3>Geral</h3>
-    <input type="text" name="titulo_landing_page" placeholder="Título Landing" value="<?= $data['titulo_landing_page'] ?? '' ?>">
-    <input type="text" name="favicon" placeholder="Favicon" value="<?= $data['favicon'] ?? '' ?>">
-    <input type="text" name="logo_cabecalho" placeholder="Logo Cabeçalho" value="<?= $data['logo_cabecalho'] ?? '' ?>">
+    <label>Título Landing</label>
+    <input name="titulo_landing_page" type="text" value="{titulo_landing_page}">
+
+    <label>Favicon</label>
+    <input name="favicon" type="text" value="{favicon}">
+
+    <label>Logo Cabeçalho</label>
+    <input name="logo_cabecalho" type="text" value="{logo_cabecalho}">
 
     <h3>Redes Sociais</h3>
-    <input type="text" name="link_facebook" placeholder="Facebook" value="<?= $data['link_facebook'] ?? '' ?>">
-    <input type="text" name="link_instagram" placeholder="Instagram" value="<?= $data['link_instagram'] ?? '' ?>">
+    <label>Facebook</label>
+    <input name="link_facebook" type="text" value="{link_facebook}">
+
+    <label>Instagram</label>
+    <input name="link_instagram" type="text" value="{link_instagram}">
 
     <h3>Seção Home</h3>
-    <input type="text" name="titulo_secao_home" placeholder="Título Home" value="<?= $data['titulo_secao_home'] ?? '' ?>">
-    <input type="text" name="subtitulo_secao_home" placeholder="Subtítulo Home" value="<?= $data['subtitulo_secao_home'] ?? '' ?>">
-    <input type="text" name="imagem_secao_home" placeholder="Imagem Home" value="<?= $data['imagem_secao_home'] ?? '' ?>">
+    <label>Título Home</label>
+    <input name="titulo_secao_home" type="text" value="{titulo_secao_home}">
+
+    <label>Subtítulo Home</label>
+    <input name="subtitulo_secao_home" type="text" value="{subtitulo_secao_home}">
+
+    <label>Imagem Home</label>
+    <input name="imagem_secao_home" type="text" value="{imagem_secao_home}">
 
     <h3>Características</h3>
-    <input type="text" name="titulo_caracteristicas_home" placeholder="Título Características" value="<?= $data['titulo_caracteristicas_home'] ?? '' ?>">
+    <label>Título Características</label>
+    <input name="titulo_caracteristicas_home" type="text" value="{titulo_caracteristicas_home}">
 
     <h3>Testemunhos</h3>
-    <input type="text" name="titulo_secao_testemunho" placeholder="Título Testemunho" value="<?= $data['titulo_secao_testemunho'] ?? '' ?>">
+    <label>Título Testemunho</label>
+    <input name="titulo_secao_testemunho" type="text" value="{titulo_secao_testemunho}">
 
     <h3>Loja Apps</h3>
-    <input type="text" name="titulo_secao_loja_apps" placeholder="Título Loja Apps" value="<?= $data['titulo_secao_loja_apps'] ?? '' ?>">
-    <input type="text" name="subtitulo_secao_loja_apps" placeholder="Subtítulo Loja Apps" value="<?= $data['subtitulo_secao_loja_apps'] ?? '' ?>">
-    <input type="text" name="imagem_secao_loja_apps" placeholder="Imagem Loja Apps" value="<?= $data['imagem_secao_loja_apps'] ?? '' ?>">
-    <input type="text" name="imagem_appstore" placeholder="Imagem App Store" value="<?= $data['imagem_appstore'] ?? '' ?>">
-    <input type="text" name="imagem_playstore" placeholder="Imagem Play Store" value="<?= $data['imagem_playstore'] ?? '' ?>">
+    <label>Título Loja Apps</label>
+    <input name="titulo_secao_loja_apps" type="text" value="{titulo_secao_loja_apps}">
+
+    <label>Subtítulo Loja Apps</label>
+    <input name="subtitulo_secao_loja_apps" type="text" value="{subtitulo_secao_loja_apps}">
+
+    <label>Imagem Loja Apps</label>
+    <input name="imagem_secao_loja_apps" type="text" value="{imagem_secao_loja_apps}">
+
+    <label>Imagem App Store</label>
+    <input name="imagem_appstore" type="text" value="{imagem_appstore}">
+
+    <label>Imagem Play Store</label>
+    <input name="imagem_playstore" type="text" value="{imagem_playstore}">
 
     <h3>Contato</h3>
-    <input type="text" name="telefone_contato" placeholder="Telefone" value="<?= $data['telefone_contato'] ?? '' ?>">
+    <label>Telefone</label>
+    <input name="telefone_contato" type="text" value="{telefone_contato}">
 
     <h3>Rodapé</h3>
-    <input type="text" name="logo_rodape" placeholder="Logo Rodapé" value="<?= $data['logo_rodape'] ?? '' ?>">
-    <input type="text" name="mensagem_copyright" placeholder="Copyright" value="<?= $data['mensagem_copyright'] ?? '' ?>">
-    <input type="text" name="url_rodape" placeholder="URL Rodapé" value="<?= $data['url_rodape'] ?? '' ?>">
-    <input type="text" name="mensagem_powered" placeholder="Mensagem Powered" value="<?= $data['mensagem_powered'] ?? '' ?>">
+    <label>Logo Rodapé</label>
+    <input name="logo_rodape" type="text" value="{logo_rodape}">
+
+    <label>Copyright</label>
+    <input name="mensagem_copyright" type="text" value="{mensagem_copyright}">
+
+    <label>URL Rodapé</label>
+    <input name="url_rodape" type="text" value="{url_rodape}">
+
+    <label>Mensagem Powered</label>
+    <input name="mensagem_powered" type="text" value="{mensagem_powered}">
 
     <br><br>
-    <button type="submit">Salvar</button>
+    <input type="submit" value="Salvar">
 </form>
