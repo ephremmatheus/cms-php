@@ -40,7 +40,13 @@ class DashboardForm
                 ob_start();
                 $controller->show();
                 $conteudo = ob_get_clean();
-            } else {
+            } else if ($pagina == 'preferenciaList') {
+                $controller = new PreferenciaList();
+                ob_start();
+                $controller->show();
+                $conteudo = ob_get_clean();
+            }
+            else {
                 $conteudo = "<p>Página não encontrada</p>";
             }
         } else {

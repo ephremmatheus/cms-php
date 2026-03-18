@@ -1,22 +1,114 @@
-<head>
-    <meta charset="utf-8">
-    <title>Item</title>
+<tr class="align-middle text-nowrap">
+  <!-- AÇÕES -->
+  <td class="text-center">
+    <a href="#" class="btn btn-sm btn-outline-primary btn-edit" data-id="{id}">
+      <i class="bi bi-pencil"></i>
+    </a>
+  </td>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<tr>
-    <td>{id}</td>
-    <td>{titulo_landing_page}</td>
-    <td>{telefone_contato}</td>
-    <td>
-        <a class="btn btn-sm btn-primary"
-           href="index.php?class=PreferenciaForm&method=edit&id={id}">
-           Editar
-        </a>
+  <td class="text-center">
+    <a
+      href="index.php?class=PreferenciaList&method=delete&id={id}"
+      class="btn btn-sm btn-outline-danger"
+      onclick="return confirm('Tem certeza que deseja excluir?');"
+    >
+      <i class="bi bi-trash"></i>
+    </a>
+  </td>
 
-        <a class="btn btn-sm btn-danger"
-           href="index.php?class=PreferenciaList&method=delete&id={id}">
-           Excluir
-        </a>
-    </td>
+  <!-- TÍTULO -->
+  <td class="fw-semibold text-truncate" style="max-width: 150px">
+    {titulo_landing_page}
+  </td>
+
+  <!-- FAVICON -->
+  <td class="fw-semibold text-truncate" style="max-width: 150px">
+    {favicon}
+  </td>
+
+  <!-- LOGO CABEÇALHO -->
+  <td class="text-center">
+    <img src="{logo_cabecalho}" class="img-fluid rounded" style="width: 50px" />
+  </td>
+
+  <!-- REDES -->
+  <td class="small text-truncate" style="max-width: 150px">{link_facebook}</td>
+
+  <td class="small text-truncate" style="max-width: 150px">{link_instagram}</td>
+
+  <!-- HOME -->
+  <td class="small text-truncate" style="max-width: 150px">
+    {titulo_secao_home}
+  </td>
+
+  <td class="small text-truncate" style="max-width: 150px">
+    {subtitulo_secao_home}
+  </td>
+
+  <td class="text-center">
+    <img
+      src="{imagem_secao_home}"
+      class="img-fluid rounded"
+      style="width: 60px"
+    />
+  </td>
+
+  <!-- CARACTERÍSTICAS -->
+  <td class="small text-truncate" style="max-width: 150px">
+    {titulo_caracteristicas_home}
+  </td>
+
+  <!-- TESTEMUNHO -->
+  <td class="small text-truncate" style="max-width: 150px">
+    {titulo_secao_testemunho}
+  </td>
+
+  <!-- LOJA -->
+  <td class="small text-truncate" style="max-width: 150px">
+    {titulo_secao_loja_apps}
+  </td>
+
+  <td class="small text-truncate" style="max-width: 150px">
+    {subtitulo_secao_loja_apps}
+  </td>
+
+  <td class="text-center">
+    <img
+      src="{imagem_secao_loja_apps}"
+      class="img-fluid rounded"
+      style="width: 60px"
+    />
+  </td>
+
+  <td class="text-center">
+    <img src="{imagem_appstore}" class="img-fluid" style="width: 40px" />
+  </td>
+
+  <td class="text-center">
+    <img src="{imagem_playstore}" class="img-fluid" style="width: 40px" />
+  </td>
+
+  <!-- CONTATO -->
+  <td class="text-center">{telefone_contato}</td>
+
+  <!-- RODAPÉ -->
+  <td class="text-center">
+    <img
+      src="{logo_rodape}"
+      class="img-fluid rounded mb-1"
+      style="width: 40px"
+    />
+  </td>
+
+  <td class="small text-truncate" style="max-width: 150px">
+    {mensagem_copyright}
+  </td>
+
+  <td class="small text-truncate" style="max-width: 150px">
+    <a href="{url_rodape}" target="_blank">Link</a>
+  </td>
+
+  <td class="small text-truncate" style="max-width: 150px">
+    {mensagem_powered}
+  </td>
 </tr>

@@ -47,7 +47,7 @@ require_once __DIR__ .  '/../models/Preferencia.php';
             try{
                 Preferencia::save($param);
                 $this->data = $param;
-                header("Location: index.php?class=PreferenciaList&success=1");
+                header("Location: index.php?class=DashboardForm&page=preferenciaList");
                 exit;
             } catch (Exception $e){
                 print $e->getMessage();
@@ -56,6 +56,7 @@ require_once __DIR__ .  '/../models/Preferencia.php';
 
 
         public function show(){
+            
             $this->html = str_replace('{id}', $this->data['id'], $this->html);
             $this->html = str_replace('{titulo_landing_page}', $this->data['titulo_landing_page'], $this->html);
             $this->html = str_replace('{favicon}', $this->data['favicon'], $this->html);
