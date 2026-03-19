@@ -34,6 +34,7 @@ class DashboardForm
 
         if (isset($param['page'])) {
             $pagina = $param['page'];
+            
 
             if ($pagina == 'testemunhoList') {
                 $controller = new TestemunhoList();

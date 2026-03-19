@@ -1,10 +1,54 @@
+<?php 
+require_once __DIR__ . '/../classes/Database.php';
+
+$conn = Database::getConnection(); 
+
+// se o formulário de contato foi enviado, salva no banco
+if (isset($_POST['action']) || isset($_GET['action'])) {
+    $action = $_POST['action'] ?? $_GET['action'];
+
+    if ($action == 'contato') {
+        $stmt = $conn->prepare("INSERT INTO mensagens_contato (nome, email, telefone, mensagem, data) 
+                                VALUES (:nome, :email, :telefone, :mensagem, :data)");
+        $stmt->execute([
+            ':nome'     => $_POST['nome'],
+            ':email'    => $_POST['email'],
+            ':telefone' => $_POST['telefone'],
+            ':mensagem' => $_POST['mensagem'],
+            ':data'     => date('Y-m-d H:i:s'),
+        ]);
+
+        // redireciona de volta pra página após salvar
+        header("Location: index.php");
+        exit;
+    }
+}
+
+//busca as preferências cadastradas no cms (pega a primeira linha)
+$stmt = $conn->prepare('SELECT * FROM preferencias LIMIT 1');
+$stmt->execute();
+$pref = $stmt->fetch(PDO::FETCH_ASSOC);
+
+//busca todas as caracteristicas da seção home
+$stmt2 = $conn->prepare('SELECT * FROM caracteristicas_home');
+$stmt2 ->execute();
+$caracteristicas= $stmt2->fetchAll(PDO::FETCH_ASSOC);
+
+//busca todos os testemunhos
+$stmt3 = $conn->prepare('SELECT * FROM testemunhos');
+$stmt3 ->execute();
+$testemunhos = $stmt3->fetchAll(PDO::FETCH_ASSOC);
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
 <head>
     <meta charset="utf-8">
-    <title>Landing Page Treinamento.</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--titulo dinamico-->
+    <title><?php echo $pref['titulo_landing_page']; ?></title>    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	
 	<meta  http-equiv="Content-Security-Policy"  content="upgrade-insecure-requests" />	
 	
@@ -46,7 +90,8 @@
 
             <!-- LOGO -->
             <a class="navbar-brand logo text-uppercase" href="../landpage">
-                <img src="images/logo.png" class="logo-dark" alt="" height="30">
+                <!--logo dinamica-->
+                <img src="<?php echo $pref['logo_cabecalho']; ?>" class="logo-dark" alt="" height="30">
             </a>
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
@@ -70,12 +115,14 @@
                     </li>
                 </ul>
                 <div class=" d-flex align-items-center" style="margin-left: 20px!important;">
-                     <a href="https://www.facebook.com" target="_blank"
+                    <!--link do facebook dinamico-->
+                     <a href="<?php echo $pref['link_facebook']; ?>" target="_blank"
 							class="me-2 avatar-sm text-center" data-bs-toggle="tooltip" data-bs-placement="top"
 							data-bs-title="Facebook" title="Facebook">
 							<i class="mdi mdi-facebook f-24 align-middle text-primary"></i>
                      </a>
-                     <a href="https://instagram.com" target="_blank"
+                     <!-- link do insta dinamico-->
+                     <a href="<?php echo $pref['link_instagram']; ?>" target="_blank"
 							class="mx-2 avatar-sm text-center" data-bs-toggle="tooltip" data-bs-placement="top"
                             data-bs-title="Instagran" title="Instagram">
                             <i class="mdi mdi-instagram f-24 align-middle text-primary"></i>
@@ -112,10 +159,10 @@
                                     <div class="d-flex align-items-center mt-5">
                                         <div class="flex-shrink-0">
                                         </div>
-                                        <div class="flex-grow-1 ms-3">
-                                            <h6 class="mb-0">Tecnologia Cloud Computing</h6>
-                                            <p class="fw-semibold mb-0 text-muted">Conectando organizações, pessoas e
-                                                processos.</p>
+                                          <div class="flex-grow-1 ms-3">
+                                            <!--titulo da seção home dinamico-->
+                                            <h6 class="mb-0"><?php echo $pref['titulo_secao_home']; ?></h6>
+                                            <p class="fw-semibold mb-0 text-muted"><?php echo $pref['subtitulo_secao_home']; ?></p>
                                         </div>
                                     </div>
                                 </div>
@@ -138,8 +185,7 @@
                                 </ul>
                                 <div class="tab-content mt-5" id="pills-tabContent">
 
-                                    <div class="tab-pane fade show active" id="pills-profile" role="tabpanel"
-                                        aria-labelledby="pills-profile-tab">
+                                    <div class="tab-pane fade show active" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
 
                                         <div class="row align-items-center">
                                             <div class="col-lg-6">
@@ -151,46 +197,24 @@
                                                 <h2 class="mb-4"><i style="font-size: 40px;" class="mdi mdi-tablet-cellphone f-20 me-2"></i>Na palma da sua mão</h2>
 
                                                 <div class="row">
-                                                    <div class="col-lg-6">
-                                                        <div class="features-box mt-4">
-                                                            <div class="d-flex">
-                                                                <div class="heading" style="height: 255px;">
-                                                                    <h6 class="d-flex align-items-center mt-1"><i style="font-size: 30px;" class="mdi mdi-rocket-launch f-20 me-2"></i>Agilidade</h6>
-                                                                    <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sed dictum odio. In consequat vulputate mollis. In euismod est urna. Morbi et sagittis risus.</p>
+                                                    <?php foreach ($caracteristicas as $c): ?>
+                                                        <div class="col-lg-6">
+                                                            <div class="features-box mt-4">
+                                                                <div class="d-flex">
+                                                                    <div class="heading" style="height: 255px;">
+                                                                        <h6 class="d-flex align-items-center mt-1">
+                                                                            <?php echo $c['titulo']; ?>
+                                                                        </h6>
+                                                                        <p class="text-muted"><?php echo $c['descricao']; ?></p>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="features-box mt-4">
-                                                            <div class="d-flex">
-                                                                <div class="heading" style="height: 255px;">
-                                                                    <h6 class="d-flex align-items-center  mt-1"><i style="font-size: 30px;" class="mdi mdi-check-circle f-20 me-2"></i>User Freindly</h6>
-                                                                    <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sed dictum odio. In consequat vulputate mollis. In euismod est urna. Morbi et sagittis risus.
-                                                                    </p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-6">
-                                                        <div class="features-box mt-4" style="height: 255px;">
-                                                            <div class="d-flex">
-                                                                <div class="heading">
-                                                                    <h6 class="d-flex align-items-center mt-1"><i style="font-size: 30px;"class="mdi mdi-cog-clockwise f-20 me-2"></i>Responsivo</h6>
-                                                                    <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sed dictum odio. In consequat vulputate mollis. In euismod est urna. Morbi et sagittis risus.</p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="features-box mt-4" style="height: 255px;">
-                                                            <div class="d-flex">
-                                                                <div class="heading">
-                                                                    <h6 class="d-flex align-items-center mt-1"><i style="font-size: 30px;" class="mdi mdi-puzzle-check f-20 me-2"></i>Diversos Módulos</h6>
-                                                                    <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sed dictum odio. In consequat vulputate mollis. In euismod est urna. Morbi et sagittis risus.</p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                                    <?php endforeach; ?>
                                                 </div>
-                                            </div>
-                                        </div>
+
+        </div>
+    </div>
                                     </div>
 
                                     <div class="tab-pane fade" id="pills-home" role="tabpanel"
@@ -305,126 +329,39 @@
                 </div>
                 <div class="col-lg-8">
                     <div class="testi-slider" id="testi-slider">
-                        <div class="item">
-                            <div class="testi-box position-relative overflow-hidden">
-                                <div class="row align-items-center">
-                                    <div class="col-md-5">
-                                        <img src="images/img/img-1.png" alt="" class="img-fluid">
-                                    </div>
-                                    <div class="col-md-7">
-                                        <div class="p-4">
-                                            <div class="d-flex align-items-center">
-                                                <div class="flex-shrink-0">
-                                                    <div class="avatar">
-                                                        <img src="images/user/img-1.jpg" alt=""
-                                                            class="img-fluid rounded-circle">
+                        <?php foreach ($testemunhos as $t): ?>
+                            <div class="item">
+                                <div class="testi-box position-relative overflow-hidden">
+                                    <div class="row align-items-center">
+                                        <div class="col-md-5">
+                                            <img src="<?php echo $t['imagem_fundo']; ?>" alt="" class="img-fluid">
+                                        </div>
+                                        <div class="col-md-7">
+                                            <div class="p-4">
+                                                <div class="d-flex align-items-center">
+                                                    <div class="flex-shrink-0">
+                                                        <div class="avatar">
+                                                            <img src="<?php echo $t['foto']; ?>" alt="" class="img-fluid rounded-circle">
+                                                        </div>
+                                                    </div>
+                                                    <div class="flex-grow-1 ms-3">
+                                                        <p class="f-14 mb-0 text-dark fw-bold"><?php echo $t['nome']; ?></p>
+                                                        <p class="text-muted mb-0 f-14"><?php echo $t['funcao']; ?></p>
                                                     </div>
                                                 </div>
-                                                <div class="flex-grow-1 ms-3">
-                                                    <p class="f-14 mb-0 text-dark fw-bold"><span
-                                                            class="text-muted fw-normal"></span> Fabiana 
-                                                    </p>
-                                                    <div class="date">
-                                                        <p class="text-muted mb-0 f-14">Gerente</p>
-                                                    </div>
+                                                <div class="mt-3">
+                                                    <h5 class="fw-bold"><?php echo $t['titulo']; ?></h5>
+                                                    <p class="text-muted f-14"><?php echo $t['descricao']; ?></p>
                                                 </div>
-                                            </div>
-
-                                            <div class="mt-3">
-                                                <h5 class="fw-bold">Satisfação</h5>
-                                                <p class="text-muted f-14">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sed dictum odio. In consequat vulputate mollis. In euismod est urna. Morbi et sagittis risus.
-                                                </p>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="back-image position-absolute end-0 bottom-0">
-
-                                </div>
-
                             </div>
-                        </div>
-                        <!-- slider item -->
-
-                        <div class="item">
-                            <div class="testi-box position-relative overflow-hidden">
-                                <div class="row align-items-center">
-                                    <div class="col-md-5">
-                                        <img src="images/img/img-2.png" alt="" class="img-fluid">
-                                    </div>
-                                    <div class="col-md-7">
-                                        <div class="p-4">
-                                            <div class="d-flex align-items-center">
-                                                <div class="flex-shrink-0">
-                                                    <div class="avatar">
-                                                        <img src="images/user/img-2.jpg" alt=""
-                                                            class="img-fluid rounded-circle">
-                                                    </div>
-                                                </div>
-                                                <div class="flex-grow-1 ms-3">
-                                                    <p class="f-14 mb-0 text-dark fw-bold"><span
-                                                            class="text-muted fw-normal">Barbosa 
-                                                            <div class="date">
-                                                                Empresário 
-                                                        </span></p>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="mt-3">
-                                            <h5 class="fw-bold">Excelente plataforma</h5>
-                                            <p class="text-muted f-14">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sed dictum odio. In consequat vulputate mollis. In euismod est urna. Morbi et sagittis risus.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="back-image position-absolute end-0 bottom-0">
-
-                            </div>
-
-                        </div>
+                        <?php endforeach; ?>
                     </div>
 
-                    <!-- slider item -->
-                    <div class="item ">
-                        <div class="testi-box position-relative overflow-hidden">
-                            <div class="row align-items-center">
-                                <div class="col-md-5">
-                                    <img src="images/img/img-3.png" alt="" class="img-fluid">
-                                </div>
-                                <div class="col-md-7">
-                                    <div class="p-4">
-                                        <div class="d-flex align-items-center">
-                                            <div class="flex-shrink-0">
-                                                <div class="avatar">
-                                                    <img src="images/user/img-3.jpg" alt=""
-                                                        class="img-fluid rounded-circle">
-                                                </div>
-                                            </div>
-                                            <div class="flex-grow-1 ms-3">
-                                                <p class="f-14 mb-0 text-dark fw-bold"><span
-                                                        class="text-muted fw-normal"></span> Carlos
-                                                </p>
-                                                <div class="date">
-                                                    <p class="text-muted mb-0 f-14">Ceo </p>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="mt-3">
-                                            <h5 class="fw-bold">Agilidade</h5>
-                                            <p class="text-muted f-14">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sed dictum odio. In consequat vulputate mollis. In euismod est urna. Morbi et sagittis risus.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="back-image position-absolute end-0 bottom-0">
-                            </div>
-
-                        </div>
-                    </div>
+                    
 
                 </div>
             </div>
@@ -448,14 +385,19 @@
             <div class="row">
                 <div class="col-lg-6">
                     <div class="py-5">
-                        <h1 class="display-4 text-white">Baixar o APP</h1>
-                        <p class="text-white-50 mt-3 f-18">Baixe nas lojas.<br><br><br><br></p>
+                        <!--loja do app dinamica-->
+                        <h1 class="display-4 text-white"><?php echo $pref['titulo_secao_loja_apps']; ?></h1>
+                        <p class="text-white-50 mt-3 f-18"><?php echo $pref['subtitulo_secao_loja_apps']; ?></p><br><br><br><br>
                         <div class="d-flex mt-4 ">
                             <div class="app-store">
-                                <a target="_blank" href="https://apps.apple.com"><img src="images/img-appstore.png" alt="" class="img-fluid"></a>
+                                <a target="_blank" href="<?php echo $pref['imagem_appstore']; ?>">
+                                    <img src="images/img-appstore.png" alt="" class="img-fluid">
+                                </a>
                             </div>
                             <div class="googleplay">
-                                <a target="_blank" href="https://play.google.com "><img src="images/img-googleplay.png" alt="" class="img-fluid ms-3"></a>
+                                <a target="_blank" href="<?php echo $pref['imagem_playstore']; ?>">
+                                    <img src="images/img-googleplay.png" alt="" class="img-fluid ms-3">
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -494,7 +436,7 @@
                         </div>
 
                         <div class="custom-form mt-4 ">
-                            <form method="post" name="myForm" method="post" enctype="multipart/form-data">
+                            <form method="post" action="index.php?action=contato">
                                 <p id="error-msg" style="opacity: 1;">
 									<p class='alert alert-success' id='msg_alert'> <strong>Obrigado !</strong> Sua Mensagem foi entregue.</p>									
                                 </p>
@@ -557,7 +499,7 @@
                         </div>
                         <div class="flex-grow-1 ms-3">
                             <h5 class="mb-1">Telefone</h5>
-                            <p class="f-14 mb-0 text-muted"> 99-99999-9999</p>
+                            <p class="f-14 mb-0 text-muted"><?php echo $pref['telefone_contato']; ?></p>
                         </div>
                     </div>
 
@@ -580,24 +522,22 @@
             <div class="row justify-content-center ">
                 <div class="col-lg-4">
                     <a class="navbar-brand logo text-uppercase" href="#">
-                        <img src="images/logo-footer.png" class="logo-light" alt="" height="30">
+                        <img src="<?php echo $pref['logo_rodape']; ?>" class="logo-light" alt="" height="30">
                     </a>
-                    <p class="text-white-50 mt-2 mb-0">©
-                        <script>document.write(new Date().getFullYear())</script> Todos os direitos reservados.
-                    </p>
-                    <a href="#" target="_blank">
-                        <p>www.landpage.com.br</p>
+                    <p class="text-white-50 mt-2 mb-0"><?php echo $pref['mensagem_copyright']; ?></p>
+                    <a href="<?php echo $pref['url_rodape']; ?>" target="_blank">
+                        <p><?php echo $pref['url_rodape']; ?></p>
                     </a>
                     <div class="footer-icon mt-4">
                         <div class=" d-flex align-items-center">
-                            <a href="https://www.facebook.com" target="_blank"
+                            <a href="<?php echo $pref['link_facebook']; ?>" target="_blank"
                                 class="me-2 avatar-sm text-center" data-bs-toggle="tooltip" data-bs-placement="top"
                                 data-bs-title="Facebook" title="Facebook">
                                 <i class="mdi mdi-facebook f-24 align-middle text-primary"></i>
                             </a>
-                            <a href="https://instagram.com" target="_blank"
+                            <a href="<?php echo $pref['link_instagram']; ?>" target="_blank"
                                 class="mx-2 avatar-sm text-center" data-bs-toggle="tooltip" data-bs-placement="top"
-                                data-bs-title="Instagran" title="Instagram">
+                                data-bs-title="Instagram" title="Instagram">
                                 <i class="mdi mdi-instagram f-24 align-middle text-primary"></i>
                             </a>
                         </div>
@@ -633,10 +573,7 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-6">
-                    <p class="mb-0 text-center text-muted">Versão 1.0 ©
-                        <script>document.write(new Date().getFullYear())</script> Powered by <a
-                            href="#" target="_blank" class="text-muted">Landing Page Treinamento.</a>
-                    </p>
+                    <p class="mb-0 text-center text-muted"><?php echo $pref['mensagem_powered']; ?></p>
                 </div>
             </div>
         </div>
