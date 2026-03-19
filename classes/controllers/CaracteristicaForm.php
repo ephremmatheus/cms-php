@@ -6,7 +6,7 @@ class CaracteristicaForm {
     private $html;
     private $data;
 
-    // carrega o html do formulário e prepara os campos vazios pra um novo cadastro
+   
     public function __construct() {
         $this->html = file_get_contents(__DIR__ . '/../../html/caracteristicas/caracteristicaForm.html');
         $this->data = [
@@ -16,7 +16,6 @@ class CaracteristicaForm {
         ];
     }
 
-    // quando clica em editar, busca os dados do banco e preenche o $this->data
     public function edit($param) {
         try {
             $id = (int) $param['id'];
@@ -27,18 +26,48 @@ class CaracteristicaForm {
         }
     }
 
-    // recebe os dados do formulário, manda salvar e volta pra lista
+   
     public function save($param) {
-        try {
-            CaracteristicaHome::save($param);
-            header("Location: index.php?class=DashboardForm&page=caracteristicaList");
-            exit;
-        } catch (Exception $e) {
-            print $e->getMessage();
+    try {
+        if (!isset($param['titulo'], $param['descricao'])) {
+            throw new Exception("Dados incompletos.");
         }
-    }
 
-    // substitui os placeholders do html pelos dados e exibe na tela
+        $id = isset($param['codigo_caracteristica']) ? (int)$param['codigo_caracteristica'] : 0;
+        $titulo = trim($param['titulo']);
+        $descricao = trim($param['descricao']);
+
+        if (empty($titulo)) {
+            throw new Exception("O título é obrigatório.");
+        }
+
+        if (empty($descricao)) {
+            throw new Exception("A descrição é obrigatória.");
+        }
+
+        if (strlen($titulo) > 100) {
+            throw new Exception("Título muito longo.");
+        }
+
+        if (strlen($descricao) > 500) {
+            throw new Exception("Descrição muito longa.");
+        }
+
+        CaracteristicaHome::save([
+            'codigo_caracteristica' => $id,
+            'titulo' => $titulo,
+            'descricao' => $descricao
+        ]);
+
+        header("Location: index.php?class=DashboardForm&page=caracteristicaList");
+        exit;
+
+    } catch (Exception $e) {
+        print $e->getMessage();
+    }
+}
+
+   
     public function show() {
         $this->html = str_replace('{codigo_caracteristica}', $this->data['codigo_caracteristica'], $this->html);
         $this->html = str_replace('{titulo}',                $this->data['titulo'],                $this->html);
