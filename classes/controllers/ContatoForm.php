@@ -30,7 +30,7 @@ require_once __DIR__ .  '/../models/Contato.php';
             try{
                 Contato::save($param);
                 $this->data = $param;
-                header("Location: index.php?class=ContatoList&success=1");
+                header("Location: index.php?class=DashboardForm&page=contatoList");
                 exit;
             } catch (Exception $e){
                 print $e->getMessage();
@@ -39,10 +39,10 @@ require_once __DIR__ .  '/../models/Contato.php';
 
         public function show(){
             $this->html = str_replace('{codigo_mensagem}', $this->data['codigo_mensagem'] ?? '', $this->html);
-            $this->html = str_replace('{nome}', $this->data['nome'] ?? '', $this->html);
-            $this->html = str_replace('{email}', $this->data['email'] ?? '', $this->html);
-            $this->html = str_replace('{telefone}', $this->data['telefone'] ?? '', $this->html);
-            $this->html = str_replace('{mensagem}', $this->data['mensagem'] ?? '', $this->html);
+            $this->html = str_replace('{nome}', $this->data['nome'], $this->html);
+            $this->html = str_replace('{email}', $this->data['email'], $this->html);
+            $this->html = str_replace('{telefone}', $this->data['telefone'], $this->html);
+            $this->html = str_replace('{mensagem}', $this->data['mensagem'], $this->html);
 
             print $this->html;
 }

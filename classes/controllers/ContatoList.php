@@ -1,32 +1,35 @@
-<?php 
+<?php
 require_once __DIR__ . '/../models/Contato.php';
 
-class ContatoList {
+class ContatoList
+{
     private $html;
 
-    public function __construct(){
+    public function __construct()
+    {
         $this->html = file_get_contents(__DIR__ . '/../../html/contato/list.html');
     }
 
-    public function delete($param){
-        try{
-            $id = (int) $param['codigo_mensagem'];
+    public function delete($param)
+    {
+        try {
+            $id = (int) $param['id'];
             Contato::delete($id);
 
-            header("Location: index.php?class=ContatoList");
+            header("Location: index.php?class=DashboardForm&page=contatoList");
             exit;
-
-        } catch(Exception $e){
+        } catch (Exception $e) {
             print $e->getMessage();
         }
     }
 
-    public function load(){
-        try{
+    public function load()
+    {
+        try {
             $contatos = Contato::all();
             $items = '';
 
-            if(empty($contatos)){
+            if (empty($contatos)) {
                 $items = '
                 <tr>
                     <td colspan="7" style="text-align:center;">
@@ -35,10 +38,10 @@ class ContatoList {
                 </tr>
                 ';
             } else {
-                foreach($contatos as $contato){
+                foreach ($contatos as $contato) {
                     $item = file_get_contents(__DIR__ . '/../../html/contato/item.html');
 
-                    $item = str_replace('{codigo_mensagem}', $contato['codigo_mensagem'], $item);
+                    $item = str_replace('{id}', $contato['codigo_mensagem'], $item);
                     $item = str_replace('{nome}', $contato['nome'], $item);
                     $item = str_replace('{email}', $contato['email'], $item);
                     $item = str_replace('{telefone}', $contato['telefone'], $item);
@@ -51,12 +54,13 @@ class ContatoList {
 
             $this->html = str_replace('{items}', $items, $this->html);
 
-        } catch(Exception $e){
+        } catch (Exception $e) {
             print $e->getMessage();
         }
     }
 
-    public function show(){
+    public function show()
+    {
         $this->load();
         print $this->html;
     }

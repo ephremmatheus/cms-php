@@ -2,16 +2,15 @@
 
   <!-- EDITAR -->
   <td class="text-center">
-    <a href="index.php?class=ContatoForm&method=edit&codigo_mensagem={codigo_mensagem}" 
-       class="btn btn-sm btn-outline-primary">
+    <a href="#" class="btn btn-sm btn-outline-primary btn-edit" data-id="{id}">
       <i class="bi bi-pencil">Editar</i>
     </a>
   </td>
 
   <!-- EXCLUIR -->
-  <td class="text-center">
+   <td class="text-center">
     <a
-      href="index.php?class=ContatoList&method=delete&codigo_mensagem={codigo_mensagem}"
+      href="index.php?class=ContatoList&method=delete&id={id}"
       class="btn btn-sm btn-outline-danger"
       onclick="return confirm('Tem certeza que deseja excluir?');"
     >
