@@ -21,22 +21,34 @@ class RegistroForm
             $senha = $param['senha'];
             $confirmar = $param['confirmar_senha'];
 
-            // Mantém login preenchido
+
             $this->data['login'] = $login;
 
-            // 🔴 Validação: senha mínima
+            if (empty($senha)) {
+                $this->mensagem = "A senha é obrigatória.";
+                return;
+            }
+
+
             if (strlen($senha) < 6) {
                 $this->mensagem = "A senha deve ter pelo menos 6 caracteres.";
                 return;
             }
 
-            // 🔴 Validação: confirmar senha
+
             if ($senha !== $confirmar) {
                 $this->mensagem = "As senhas não coincidem.";
                 return;
             }
+            if (empty($login)) {
+                $this->mensagem = "O login é obrigatório.";
+                return;
+            }
+            if (empty($confirmar)) {
+                $this->mensagem = "Confirme a senha.";
+                return;
+            }
 
-            // 🔴 Validação: login duplicado
             $existe = Usuario::findByLogin($login);
             if ($existe) {
                 $this->mensagem = "Este login já está cadastrado.";

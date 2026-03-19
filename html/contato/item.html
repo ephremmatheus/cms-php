@@ -1,0 +1,38 @@
+<tr class="align-middle">
+
+  <!-- EDITAR -->
+  <td class="text-center">
+    <a href="#" class="btn btn-sm btn-outline-primary btn-edit" data-id="{id}">
+      <i class="bi bi-pencil">Editar</i>
+    </a>
+  </td>
+
+  <!-- EXCLUIR -->
+   <td class="text-center">
+    <a
+      href="index.php?class=ContatoList&method=delete&id={id}"
+      class="btn btn-sm btn-outline-danger"
+      onclick="return confirm('Tem certeza que deseja excluir?');"
+    >
+      <i class="bi bi-trash">Excluir</i>
+    </a>
+  </td>
+
+  <!-- DADOS -->
+  <td><strong>{nome}</strong></td>
+  <td>{email}</td>
+  <td>{telefone}</td>
+
+  <td>
+    <span class="text-muted">
+      {mensagem}
+    </span>
+  </td>
+
+  <td>
+    <span class="badge bg-light text-dark">
+      {data}
+    </span>
+  </td>
+
+</tr>

@@ -36,6 +36,29 @@ class TestemunhoForm
     public function save($param)
     {
         try {
+            if (empty(trim($param['nome']))) {
+                throw new Exception("O nome é obrigatório.");
+            }
+
+            if (empty(trim($param['funcao']))) {
+                throw new Exception("A função é obrigatória.");
+            }
+
+            if (empty(trim($param['titulo']))) {
+                throw new Exception("O título é obrigatório.");
+            }
+
+            if (empty(trim($param['descricao']))) {
+                throw new Exception("A descrição é obrigatória.");
+            }
+
+            if (empty(trim($param['foto']))) {
+                throw new Exception("A foto é obrigatória.");
+            }
+
+            if (empty(trim($param['imagem_fundo']))) {
+                throw new Exception("A imagem de fundo é obrigatória.");
+            }
             Testemunho::save($param);
             $this->data = $param;
             header("Location: index.php?class=DashboardForm&page=testemunhoList");

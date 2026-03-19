@@ -49,12 +49,11 @@ CREATE TABLE testemunhos (
     imagem_fundo VARCHAR(255)
 );
 
-CREATE TABLE mensagens_contato (
+CREATE TABLE contatos (
     codigo_mensagem INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(255),
     email VARCHAR(255),
     telefone VARCHAR(50),
     mensagem TEXT,
-    data DATETIME
+    data DATETIME DEFAULT CURRENT_TIMESTAMP
 );
-

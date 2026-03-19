@@ -17,21 +17,31 @@ class UsuarioForm
         ];
     }
 
-    public function edit($param)
-    {
-        try {
-            $id = (int) $param['id'];
-            $usuario = Usuario::find($id);
-            $this->data = $usuario;
+   public function edit($param)
+{
+    try {
+        $id = (int) $param['id'];
+        $usuario = Usuario::find($id);
 
-        } catch (Exception $e) {
-            print $e->getMessage();
-        }
+        $this->data = [
+            'id' => $usuario['codigo_usuario'], 
+            'login' => $usuario['login'],
+        ];
+
+    } catch (Exception $e) {
+        print $e->getMessage();
     }
+}
 
     public function save($param)
     {
         try {
+            $id = $param['id'] ?? null;
+
+            // 🚫 bloqueia criação
+            if (empty($id)) {
+                throw new Exception('Não é permitido criar usuários por aqui.');
+            }
             Usuario::save($param);
             $this->data = $param;
             header("Location: index.php?class=DashboardForm&page=usuarioList");
@@ -44,8 +54,6 @@ class UsuarioForm
     {
         $this->html = str_replace('{id}', $this->data['id'], $this->html);
         $this->html = str_replace('{login}', $this->data['login'], $this->html);
-        $this->html = str_replace('{senha}', $this->data['senha'], $this->html);
-
         print $this->html;
     }
 }
