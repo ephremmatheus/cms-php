@@ -22,7 +22,7 @@ class DashboardForm
         if ($_SESSION['usuario_id'] == 1) {
             $menuUsuarios = '
                 <li class="list-group-item">
-                    <a href="index.php?class=UsuarioList">Usuários</a>
+                    <a href="index.php?class=DashboardForm&page=usuarioList">Usuários</a>
                 </li>
             ';
         } else {
@@ -42,6 +42,11 @@ class DashboardForm
                 $conteudo = ob_get_clean();
             } else if ($pagina == 'preferenciaList') {
                 $controller = new PreferenciaList();
+                ob_start();
+                $controller->show();
+                $conteudo = ob_get_clean();
+            } else if ($pagina == 'usuarioList') {
+                $controller = new UsuarioList();
                 ob_start();
                 $controller->show();
                 $conteudo = ob_get_clean();

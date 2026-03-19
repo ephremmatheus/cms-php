@@ -34,4 +34,29 @@ class Usuario
         $result->execute([':login' => $login]);
         return $result->fetch(PDO::FETCH_ASSOC);
     }
+
+    public static function find($id)
+    {
+        $conn = Database::getConnection();
+        $sql = "SELECT * FROM usuarios WHERE codigo_usuario = :id";
+        $result = $conn->prepare($sql);
+        $result->execute([':id' => $id]);
+        return $result->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public static function all()
+    {
+        $conn = Database::getConnection();
+        $sql = "SELECT * FROM usuarios";
+        $result = $conn->query($sql);
+        return $result->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public static function delete($id)
+    {
+        $conn = Database::getConnection();
+        $sql = "DELETE FROM usuarios WHERE codigo_usuario = :id";
+        $result = $conn->prepare($sql);
+        $result->execute([':id' => $id]);
+    }
 }
