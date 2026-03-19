@@ -57,6 +57,12 @@ class DashboardForm
                 $controller->show();
                 $conteudo = ob_get_clean();
             }
+            else if ($pagina == 'contatoList') {
+                $controller = new ContatoList();
+                ob_start();
+                $controller->show();
+                $conteudo = ob_get_clean();
+            }
             else {
                 $conteudo = "<p>Página não encontrada</p>";
             }

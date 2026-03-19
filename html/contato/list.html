@@ -1,0 +1,93 @@
+<div class="container mt-4">
+  <div class="card shadow p-3">
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h4 class="m-0">Contatos</h4>
+
+      <button
+        class="btn btn-primary text-white"
+        data-bs-toggle="modal"
+        data-bs-target="#modalForm"
+      >
+        <i class="bi bi-plus-lg"></i> Inserir
+      </button>
+    </div>
+
+
+    <div class="table-responsive">
+      <table class="table table-hover align-middle">
+        <thead>
+          <tr>
+            <th class="text-center">Editar</th>
+            <th class="text-center">Excluir</th>
+            <th>Nome</th>
+            <th>Email</th>
+            <th>Telefone</th>
+            <th>Mensagem</th>
+            <th>Data</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {items}
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div>
+
+<div class="modal fade" id="modalForm">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+
+      <div
+        class="modal-header text-white"
+        style="background: linear-gradient(90deg, #00c6ff, #0072ff)"
+      >
+        <h5 class="modal-title">Cadastro de Contato</h5>
+        <button
+          class="btn-close btn-close-white"
+          data-bs-dismiss="modal"
+        ></button>
+      </div>
+
+      <div class="modal-body" id="modalBody">
+        <div class="text-center p-4">
+          <div class="spinner-border text-primary"></div>
+          <p class="mt-2">Carregando...</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  // ABRIR FORM (NOVO)
+  document
+    .querySelector('[data-bs-target="#modalForm"]')
+    .addEventListener('click', function () {
+      fetch('index.php?class=ContatoForm')
+        .then(res => res.text())
+        .then(html => {
+          document.getElementById('modalBody').innerHTML = html;
+        });
+    });
+
+  // EDITAR
+  document.addEventListener('click', function (e) {
+    if (e.target.closest('.btn-edit')) {
+      const id = e.target.closest('.btn-edit').dataset.id;
+
+      fetch(`index.php?class=ContatoForm&method=edit&codigo_mensagem=${id}`)
+        .then(res => res.text())
+        .then(html => {
+          document.getElementById('modalBody').innerHTML = html;
+
+          let modal = new bootstrap.Modal(document.getElementById('modalForm'));
+          modal.show();
+        });
+    }
+  });
+</script>
