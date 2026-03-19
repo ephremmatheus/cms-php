@@ -18,6 +18,9 @@ class Preferencia
     {
         $conn = self::getConn();
 
+
+        
+
         $result = $conn->query("SELECT id FROM preferencias LIMIT 1");
         $row = $result->fetch();
 

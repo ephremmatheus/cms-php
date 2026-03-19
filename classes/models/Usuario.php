@@ -7,23 +7,20 @@ class Usuario
     {
         $conn = Database::getConnection();
 
-        $senha_hash = password_hash($usuario['senha'], PASSWORD_DEFAULT);
-
+       
+        if (isset($usuario['id'])) {
+            $usuario['codigo_usuario'] = $usuario['id'];
+        }
 
         if (empty($usuario['codigo_usuario'])) {
-            $result = $conn->query("SELECT max(codigo_usuario) as next from usuarios");
-            $row = $result->fetch();
-            $usuario['codigo_usuario'] = (int) $row['next'] + 1;
-
-            $sql = "INSERT INTO usuarios (codigo_usuario, login, senha) VALUES (:codigo_usuario, :login, :senha)";
-            $result = $conn->prepare($sql);
-            $result->execute([
-                ':codigo_usuario' => $usuario['codigo_usuario'],
-                ':login' => $usuario['login'],
-                ':senha' => $senha_hash
-            ]);
+            
+            throw new Exception('Criação de usuário não permitida aqui.');
         } else {
-            $sql = "UPDATE usuarios SET login = :login WHERE codigo_usuario = :id";
+            
+            $sql = "UPDATE usuarios 
+                SET login = :login 
+                WHERE codigo_usuario = :id";
+
             $result = $conn->prepare($sql);
             $result->execute([
                 ':id' => $usuario['codigo_usuario'],

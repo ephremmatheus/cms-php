@@ -10,14 +10,14 @@ class PreferenciaForm
     {
         $this->html = file_get_contents(__DIR__ . '/../../html/preferencias/form.html');
 
-       
+
         $preferencias = Preferencia::all();
 
         if (!empty($preferencias)) {
-            
+
             $this->data = $preferencias[0];
         } else {
-           
+
             $this->data = [
                 'id' => null,
                 'titulo_landing_page' => null,
@@ -58,6 +58,23 @@ class PreferenciaForm
     public function save($param)
     {
         try {
+
+            if (empty($param['titulo_landing_page'])) {
+                throw new Exception("Título da landing é obrigatório.");
+            }
+
+            if (empty($param['titulo_secao_home'])) {
+                throw new Exception("Título da home é obrigatório.");
+            }
+
+            if (empty($param['telefone_contato'])) {
+                throw new Exception("Telefone é obrigatório.");
+            }
+
+            foreach ($param as $key => $value) {
+                $param[$key] = trim($value);
+            }
+
             Preferencia::save($param);
             $this->data = $param;
             header("Location: index.php?class=DashboardForm&page=preferenciaList");

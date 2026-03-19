@@ -57,6 +57,7 @@ class UsuarioList
     }
     public function show()
     {
+        
         $this->load();
         print $this->html;
     }
