@@ -45,6 +45,12 @@ class DashboardForm
                 ob_start();
                 $controller->show();
                 $conteudo = ob_get_clean();
+            } else if ($pagina == 'caracteristicaList') {
+                // carrega o controller de características e exibe a listagem
+                $controller = new CaracteristicasList();
+                ob_start();
+                $controller->show();
+                $conteudo = ob_get_clean();
             } else if ($pagina == 'usuarioList') {
                 $controller = new UsuarioList();
                 ob_start();
