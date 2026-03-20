@@ -1,5 +1,5 @@
 <?php
-
+require_once __DIR__ . '/../Database.php';
 class DashboardForm
 {
     private $html;
@@ -17,6 +17,12 @@ class DashboardForm
     public function show($param = [])
     {
         $login = $_SESSION['usuario_login'];
+        // busca a quantidade de registros de cada seção pra exibir no dashboard
+        $conn = Database::getConnection();
+
+        $totalCaracteristicas = $conn->query("SELECT COUNT(*) FROM caracteristicas_home")->fetchColumn();
+        $totalTestemunhos     = $conn->query("SELECT COUNT(*) FROM testemunhos")->fetchColumn();
+        $totalMensagens       = $conn->query("SELECT COUNT(*) FROM mensagens_contato")->fetchColumn();
 
         // 🔐 menu usuarios
         if ($_SESSION['usuario_id'] == 1) {
@@ -93,21 +99,17 @@ class DashboardForm
         </div>
 
         <div class="col-md-3">
-          <div class="p-3 bg-light rounded shadow-sm h-100">
-            <h5 class="fw-semibold">💬 Testemunhos</h5>
-            <p class="small text-muted mb-0">
-              Gerencie depoimentos exibidos na landing page.
-            </p>
-          </div>
+            <div class="p-3 bg-light rounded shadow-sm h-100">
+                <h5 class="fw-semibold">💬 Testemunhos</h5>
+                <p class="small text-muted mb-0">' . $totalTestemunhos . ' cadastrado(s).</p>
+            </div>
         </div>
 
         <div class="col-md-3">
-          <div class="p-3 bg-light rounded shadow-sm h-100">
-            <h5 class="fw-semibold">⭐ Características</h5>
-            <p class="small text-muted mb-0">
-              Destaques da home, como benefícios e diferenciais do produto.
-            </p>
-          </div>
+            <div class="p-3 bg-light rounded shadow-sm h-100">
+                <h5 class="fw-semibold">⭐ Características</h5>
+                <p class="small text-muted mb-0">' . $totalCaracteristicas . ' cadastrada(s).</p>
+            </div>
         </div>
 
         <div class="col-md-3">
@@ -120,12 +122,10 @@ class DashboardForm
         </div>
 
         <div class="col-md-6">
-          <div class="p-3 bg-light rounded shadow-sm h-100">
-            <h5 class="fw-semibold">📩 Contato</h5>
-            <p class="small text-muted mb-0">
-              Visualize e gerencie mensagens enviadas pelos usuários através da landing page.
-            </p>
-          </div>
+            <div class="p-3 bg-light rounded shadow-sm h-100">
+                <h5 class="fw-semibold">📩 Contato</h5>
+                <p class="small text-muted mb-0">' . $totalMensagens . ' mensagem(ns) recebida(s).</p>
+            </div>
         </div>
 
         <div class="col-md-6">

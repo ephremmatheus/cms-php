@@ -17,13 +17,13 @@ class Contato
         $conn = self::getConn();
 
         if (empty($data['codigo_mensagem'])) {
-            $result = $conn->query("SELECT max(codigo_mensagem) as next from contatos");
+            $result = $conn->query("SELECT max(codigo_mensagem) as next from mensagens_contato");
             $row = $result->fetch();
             $data['codigo_mensagem'] = (int) $row['next'] + 1;
 
-            $sql = "INSERT INTO contatos (codigo_mensagem, nome, email, telefone, mensagem) values(:codigo_mensagem, :nome, :email, :telefone, :mensagem)";
+            $sql = "INSERT INTO mensagens_contato (codigo_mensagem, nome, email, telefone, mensagem) values(:codigo_mensagem, :nome, :email, :telefone, :mensagem)";
         } else {
-            $sql = "UPDATE contatos 
+            $sql = "UPDATE mensagens_contato 
                 SET nome = :nome, email = :email, telefone = :telefone, mensagem = :mensagem 
                 WHERE codigo_mensagem = :codigo_mensagem";
         }
@@ -43,7 +43,7 @@ class Contato
     {
         $conn = self::getConn();
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $sql = "SELECT * FROM contatos WHERE codigo_mensagem = :codigo_mensagem";
+        $sql = "SELECT * FROM mensagens_contato WHERE codigo_mensagem = :codigo_mensagem";
 
         $stmt = $conn->prepare($sql);
         $stmt->execute([
@@ -57,7 +57,7 @@ class Contato
     {
         $conn = self::getConn();
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $sql = "DELETE FROM contatos WHERE codigo_mensagem = :codigo_mensagem";
+        $sql = "DELETE FROM mensagens_contato WHERE codigo_mensagem = :codigo_mensagem";
 
         $stmt = $conn->prepare($sql);
         $stmt->execute([
@@ -72,7 +72,7 @@ class Contato
         $conn = self::getConn();
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        $sql = 'SELECT * FROM contatos';
+        $sql = 'SELECT * FROM mensagens_contato';
 
         $stmt = $conn->prepare($sql);
         $stmt->execute();

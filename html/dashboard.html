@@ -39,13 +39,22 @@
             background: linear-gradient(90deg, #00c6ff, #0072ff);
             border: none;
         }
+
+        /* indica que o título é clicável */
+        header a:hover h4 {
+            color: #000000 !important;
+            transition: color 0.2s;
+        }
     </style>
 </head>
 
 <body>
 
     <header class="p-3 text-white d-flex justify-content-between align-items-center shadow">
-        <h4 class="m-0">Meu App</h4>
+        <!-- clicando no título volta pra tela inicial do dashboard -->
+        <a href="index.php?class=DashboardForm" class="text-white text-decoration-none">
+            <h4 class="m-0">Meu App</h4>
+        </a>
 
         <div>
             Olá, <strong>{login}</strong>
@@ -69,6 +78,10 @@
 
         <div class="offcanvas-body">
             <ul class="list-group">
+                <!-- link pra voltar pra tela inicial do dashboard -->
+                <li class="list-group-item">
+                    <a href="index.php?class=DashboardForm">Início</a>
+                </li>
 
                 {menu_usuarios}
 
@@ -76,9 +89,9 @@
                     <a href="index.php?class=DashboardForm&page=preferenciaList">Preferências</a>
                 </li>
 
-            <li class="list-group-item">
-                <a href="index.php?class=DashboardForm&page=caracteristicaList">Características</a>
-            </li>
+                <li class="list-group-item">
+                    <a href="index.php?class=DashboardForm&page=caracteristicaList">Características</a>
+                </li>
 
                 <li class="list-group-item">
                     <a href="index.php?class=DashboardForm&page=testemunhoList">
@@ -86,9 +99,9 @@
                     </a>
                 </li>
 
-            <li class="list-group-item">
-                <a href="index.php?class=DashboardForm&page=contatoList">Contato</a>
-            </li>
+                <li class="list-group-item">
+                    <a href="index.php?class=DashboardForm&page=contatoList">Contato</a>
+                </li>
 
             </ul>
         </div>

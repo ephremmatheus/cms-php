@@ -1,4 +1,5 @@
 <?php 
+$mensagem_sucesso = "";
 require_once __DIR__ . '/../classes/Database.php';
 
 $conn = Database::getConnection(); 
@@ -8,19 +9,35 @@ if (isset($_POST['action']) || isset($_GET['action'])) {
     $action = $_POST['action'] ?? $_GET['action'];
 
     if ($action == 'contato') {
-        $stmt = $conn->prepare("INSERT INTO mensagens_contato (nome, email, telefone, mensagem, data) 
-                                VALUES (:nome, :email, :telefone, :mensagem, :data)");
-        $stmt->execute([
-            ':nome'     => $_POST['nome'],
-            ':email'    => $_POST['email'],
-            ':telefone' => $_POST['telefone'],
-            ':mensagem' => $_POST['mensagem'],
-            ':data'     => date('Y-m-d H:i:s'),
-        ]);
+        $nome     = trim($_POST['nome']);
+        $email    = trim($_POST['email']);
+        $telefone = trim($_POST['telefone']);
+        $mensagem = trim($_POST['mensagem']);
 
-        // redireciona de volta pra página após salvar
-        header("Location: index.php");
-        exit;
+        // remove tudo que não for número do telefone
+        $telefone_numeros = preg_replace('/[^0-9]/', '', $telefone);
+
+        // verifica se algum campo está vazio
+        if (empty($nome) || empty($email) || empty($telefone) || empty($mensagem)) {
+            $mensagem_sucesso = "incompleto";
+
+        // verifica se o telefone tem entre 10 e 11 dígitos (com DDD)
+        } elseif (strlen($telefone_numeros) < 10 || strlen($telefone_numeros) > 11) {
+            $mensagem_sucesso = "telefone_invalido";
+
+        } else {
+            $stmt = $conn->prepare("INSERT INTO mensagens_contato (nome, email, telefone, mensagem, data) 
+                                    VALUES (:nome, :email, :telefone, :mensagem, :data)");
+            $stmt->execute([
+                ':nome'     => $nome,
+                ':email'    => $email,
+                ':telefone' => $telefone_numeros, // salva só os números
+                ':mensagem' => $mensagem,
+                ':data'     => date('Y-m-d H:i:s'),
+            ]);
+
+            $mensagem_sucesso = "Mensagem enviada com sucesso!";
+        }
     }
 }
 
@@ -437,9 +454,19 @@ $testemunhos = $stmt3->fetchAll(PDO::FETCH_ASSOC);
 
                         <div class="custom-form mt-4 ">
                             <form method="post" action="index.php?action=contato">
-                                <p id="error-msg" style="opacity: 1;">
-									<p class='alert alert-success' id='msg_alert'> <strong>Obrigado !</strong> Sua Mensagem foi entregue.</p>									
-                                </p>
+                                <?php if ($mensagem_sucesso == "incompleto"): ?>
+                                    <div class="alert alert-warning">
+                                        Por favor, preencha todos os campos.
+                                    </div>
+                                <?php elseif ($mensagem_sucesso == "telefone_invalido"): ?>
+                                    <div class="alert alert-warning">
+                                        Por favor, informe um telefone válido com DDD.
+                                    </div>
+                                <?php elseif ($mensagem_sucesso == "Mensagem enviada com sucesso!"): ?>
+                                    <div class="alert alert-success">
+                                        <strong>Obrigado!</strong> <?php echo $mensagem_sucesso; ?>
+                                    </div>
+                                <?php endif; ?>
 
                                 <div id="simple-msg"></div>
                                 <div class="row">
