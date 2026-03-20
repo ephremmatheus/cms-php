@@ -38,7 +38,7 @@ class UsuarioForm
         try {
             $id = $param['id'] ?? null;
 
-            // 🚫 bloqueia criação
+        
             if (empty($id)) {
                 throw new Exception('Não é permitido criar usuários por aqui.');
             }

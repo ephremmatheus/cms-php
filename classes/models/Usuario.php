@@ -7,25 +7,60 @@ class Usuario
     {
         $conn = Database::getConnection();
 
-       
         if (isset($usuario['id'])) {
             $usuario['codigo_usuario'] = $usuario['id'];
         }
 
+
+        if (!empty($usuario['senha'])) {
+            $usuario['senha'] = password_hash($usuario['senha'], PASSWORD_DEFAULT);
+        }
+
         if (empty($usuario['codigo_usuario'])) {
-            
-            throw new Exception('Criação de usuário não permitida aqui.');
-        } else {
-            
-            $sql = "UPDATE usuarios 
-                SET login = :login 
-                WHERE codigo_usuario = :id";
+            $result = $conn->query("SELECT max(codigo_usuario) as next from usuarios");
+            $row = $result->fetch();
+            $usuario['codigo_usuario'] = (int) $row['next'] + 1;
+
+            $sql = "INSERT INTO usuarios (codigo_usuario, login, senha) 
+                VALUES (:codigo_usuario, :login, :senha)";
 
             $result = $conn->prepare($sql);
             $result->execute([
-                ':id' => $usuario['codigo_usuario'],
-                ':login' => $usuario['login']
+                ':codigo_usuario' => $usuario['codigo_usuario'],
+                ':login' => $usuario['login'],
+                ':senha' => $usuario['senha']
             ]);
+
+            return $conn->lastInsertId();
+
+        } else {
+
+            if (!empty($usuario['senha'])) {
+
+                $sql = "UPDATE usuarios 
+                    SET login = :login, senha = :senha 
+                    WHERE codigo_usuario = :id";
+
+                $params = [
+                    ':id' => $usuario['codigo_usuario'],
+                    ':login' => $usuario['login'],
+                    ':senha' => $usuario['senha']
+                ];
+
+            } else {
+
+                $sql = "UPDATE usuarios 
+                    SET login = :login 
+                    WHERE codigo_usuario = :id";
+
+                $params = [
+                    ':id' => $usuario['codigo_usuario'],
+                    ':login' => $usuario['login']
+                ];
+            }
+
+            $result = $conn->prepare($sql);
+            $result->execute($params);
         }
     }
 
