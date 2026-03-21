@@ -206,7 +206,7 @@ $testemunhos = $stmt3->fetchAll(PDO::FETCH_ASSOC);
 
                                         <div class="row align-items-center">
                                             <div class="col-lg-6">
-                                                <img src="images/features/home-1.png" alt="" class="img-fluid"
+                                                <img src="<?php echo $pref['imagem_secao_home']; ?>" alt="" class="img-fluid"
                                                     style="animation: ani-bg 3s infinite;">
                                             </div>
 
@@ -421,7 +421,7 @@ $testemunhos = $stmt3->fetchAll(PDO::FETCH_ASSOC);
                 </div>
                 <div class="col-lg-6">
                     <div class="cta-phone-image">
-                        <img src="images/home-5.png" alt="" style="height:600px;" class=" img-fluid">
+                        <img src="<?php echo $pref['imagem_secao_loja_apps']; ?>" alt="" style="height:600px;" class=" img-fluid">
                     </div>
                 </div>
             </div>
