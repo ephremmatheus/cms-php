@@ -1,0 +1,32 @@
+.mockup-container {
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+}
+
+/* imagem do computador */
+.mockup {
+    width: 100%;
+    display: block;
+}
+
+/* área da tela */
+.tela {
+    position: absolute;
+
+    top: 18%;
+    left: 22%;
+
+    width: 55%;
+    height: 48%;
+
+    transform: rotate(-15deg); /* 🔥 acompanha o monitor */
+    overflow: hidden;
+}
+
+/* imagem do usuário */
+.tela img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
