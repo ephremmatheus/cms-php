@@ -1,4 +1,4 @@
-<form method="POST" action="index.php?class=PreferenciaForm&method=save">
+<form method="POST" action="index.php?class=PreferenciaForm&method=save" enctype="multipart/form-data">
   <div class="container-fluid">
     <input name="id" type="hidden" value="{id}" />
 
@@ -11,12 +11,16 @@
 
     <div class="mb-3">
       <label class="form-label">Favicon</label>
-      <input name="favicon" class="form-control" value="{favicon}" required/>
+      {nome_favicon}
+      <input type="file" name="favicon" class="form-control" value="{favicon}"/>
+      <small>Deixe vazio para manter a imagem atual</small>
     </div>
 
     <div class="mb-3">
       <label class="form-label">Logo do Cabeçalho</label>
-      <input name="logo_cabecalho" class="form-control" value="{logo_cabecalho}" required/>
+      {nome_logo}
+      <input type="file" name="logo_cabecalho" class="form-control" value="{logo_cabecalho}"/>
+      <small>Deixe vazio para manter a imagem atual</small>
     </div>
 
     <h5 class="mt-4 mb-3">Redes Sociais</h5>
@@ -45,7 +49,9 @@
 
     <div class="mb-3">
       <label class="form-label">Imagem da Home</label>
-      <input name="imagem_secao_home" class="form-control" value="{imagem_secao_home}" required/>
+      {nome_imagem_home}
+      <input type="file" name="imagem_secao_home" class="form-control" value="{imagem_secao_home}"/>
+      <small>Deixe vazio para manter a imagem atual</small>
     </div>
 
     <h5 class="mt-4 mb-3">Características</h5>
@@ -76,7 +82,9 @@
 
     <div class="mb-3">
       <label class="form-label">Imagem da Loja</label>
-      <input name="imagem_secao_loja_apps" class="form-control" value="{imagem_secao_loja_apps}" required/>
+      {nome_imagem_loja}
+      <input type="file" name="imagem_secao_loja_apps" class="form-control" value="{imagem_secao_loja_apps}"/>
+      <small>Deixe vazio para manter a imagem atual</small>
     </div>
 
     <div class="mb-3">
@@ -86,7 +94,9 @@
 
     <div class="mb-3">
       <label class="form-label">Imagem App Store</label>
-      <input name="imagem_appstore" class="form-control" value="{imagem_appstore}" required/>
+      {nome_imagem_appstore}
+      <input type="file" name="imagem_appstore" class="form-control" value="{imagem_appstore}"/>
+      <small>Deixe vazio para manter a imagem atual</small>
     </div>
 
     <div class="mb-3">
@@ -96,7 +106,9 @@
 
     <div class="mb-3">
       <label class="form-label">Imagem Play Store</label>
-      <input name="imagem_playstore" class="form-control" value="{imagem_playstore}" required/>
+      {nome_imagem_playstore}
+      <input type="file" name="imagem_playstore" class="form-control" value="{imagem_playstore}"/>
+      <small>Deixe vazio para manter a imagem atual</small>
     </div>
 
     <h5 class="mt-4 mb-3">Contato</h5>
@@ -109,8 +121,10 @@
     <h5 class="mt-4 mb-3">Rodapé</h5>
 
     <div class="mb-3">
-      <label class="form-label">Logo do Rodapé (URL)</label>
-      <input name="logo_rodape" class="form-control" value="{logo_rodape}" required/>
+      <label class="form-label">Logo do Rodapé</label>
+      {nome_logo_rodape}
+      <input type="file" name="logo_rodape" class="form-control" value="{logo_rodape}"/>
+      <small>Deixe vazio para manter a imagem atual</small>
     </div>
 
     <div class="mb-3">
