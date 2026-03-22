@@ -5,6 +5,7 @@ class PreferenciaForm
 {
     private $html;
     private $data;
+    private $mensagem;
 
     public function __construct()
     {
@@ -46,6 +47,48 @@ class PreferenciaForm
         }
     }
 
+    private function uploadImagem($campo, $valorAtual = null){
+        if (!empty($_FILES[$campo]['name'])) {
+
+
+        
+            $arquivo = $_FILES[$campo];
+
+
+            $tiposPermitidos = ['image/jpeg', 'image/png', 'image/webp', 'image/x-icon'];
+
+            if (!in_array($arquivo['type'], $tiposPermitidos)) {
+                throw new Exception('Apenas imagens são permitidas');  
+            }
+
+            $nome = uniqid() . '_' . $arquivo['name'];
+            $tmp = $arquivo['tmp_name'];
+
+            $pastaFisica = __DIR__ . '/../../Layout/images/';
+            $caminho = 'Layout/images/' . $nome;
+
+            if (!is_dir($pastaFisica)) {
+                mkdir($pastaFisica, 0777, true);
+            }
+
+            move_uploaded_file($tmp, $pastaFisica . $nome);
+
+            return $caminho;
+
+        }
+    return $valorAtual; 
+    }
+
+    private function getNomeArquivo($caminho){
+        if (empty($caminho)) return '';
+
+        $nome = basename($caminho);
+
+        $partes = explode('_', $nome);
+
+        return $partes[1] ?? $nome;
+    }
+
     public function edit($param)
     {
         try {
@@ -73,6 +116,21 @@ class PreferenciaForm
                 throw new Exception("Telefone é obrigatório.");
             }
 
+            $param['logo_cabecalho'] = $this->uploadImagem('logo_cabecalho', $this->data['logo_cabecalho']);
+
+            $param['favicon'] = $this->uploadImagem('favicon', $this->data['favicon']);
+
+            $param['imagem_secao_home'] = $this->uploadImagem('imagem_secao_home', $this->data['imagem_secao_home']);
+
+            $param['imagem_secao_loja_apps'] = $this->uploadImagem('imagem_secao_loja_apps', $this->data['imagem_secao_loja_apps']);
+
+            $param['imagem_appstore'] = $this->uploadImagem('imagem_appstore', $this->data['imagem_appstore']);
+
+            $param['imagem_playstore'] = $this->uploadImagem('imagem_playstore', $this->data['imagem_playstore']);
+
+            $param['logo_rodape'] = $this->uploadImagem('logo_rodape', $this->data['logo_rodape']);
+
+
             foreach ($param as $key => $value) {
                 $param[$key] = trim($value);
             }
@@ -82,7 +140,11 @@ class PreferenciaForm
             header("Location: index.php?class=DashboardForm&page=preferenciaList");
             exit;
         } catch (Exception $e) {
-            print $e->getMessage();
+        
+            $_SESSION['mensagem'] = $e->getMessage();
+
+            header("Location: index.php?class=DashboardForm&page=preferenciaList");
+            exit;
         }
     }
 
@@ -90,16 +152,38 @@ class PreferenciaForm
     public function show()
     {
 
+        $nomeLogo = $this->getNomeArquivo($this->data['logo_cabecalho']);
+        $this->html = str_replace(
+            '{nome_logo}',
+            $nomeLogo ? '<small> Arquivo atual: ' . $nomeLogo . '</small>' : '',
+            $this->html
+        );
+        $this->html = str_replace('{nome_logo}', $nomeLogo, $this->html);
+
         $this->html = str_replace('{id}', $this->data['id'], $this->html);
         $this->html = str_replace('{titulo_landing_page}', $this->data['titulo_landing_page'], $this->html);
-        $this->html = str_replace('{favicon}', $this->data['favicon'], $this->html);
-        $this->html = str_replace('{logo_cabecalho}', $this->data['logo_cabecalho'], $this->html);
+
+        $nomeFavicon = $this->getNomeArquivo($this->data['favicon']);
+        $this->html = str_replace(
+            '{nome_favicon}',
+            $nomeFavicon ? '<small> Arquivo atual: ' . $nomeFavicon . '</small>' : '',
+            $this->html
+        );
+        $this->html = str_replace('{nome_favicon}', $nomeFavicon, $this->html);
+
         $this->html = str_replace('{link_facebook}', $this->data['link_facebook'], $this->html);
         $this->html = str_replace('{link_instagram}', $this->data['link_instagram'], $this->html);
 
         $this->html = str_replace('{titulo_secao_home}', $this->data['titulo_secao_home'], $this->html);
         $this->html = str_replace('{subtitulo_secao_home}', $this->data['subtitulo_secao_home'], $this->html);
-        $this->html = str_replace('{imagem_secao_home}', $this->data['imagem_secao_home'], $this->html);
+
+        $nomeImagemHome = $this->getNomeArquivo($this->data['imagem_secao_home']);
+        $this->html = str_replace(
+            '{nome_imagem_home}',
+            $nomeImagemHome ? '<small> Arquivo atual: ' . $nomeImagemHome . '</small>' : '',
+            $this->html
+        );
+        $this->html = str_replace('{nome_imagem_home}', $nomeImagemHome, $this->html);
 
         $this->html = str_replace('{titulo_caracteristicas_home}', $this->data['titulo_caracteristicas_home'], $this->html);
 
@@ -107,15 +191,47 @@ class PreferenciaForm
 
         $this->html = str_replace('{titulo_secao_loja_apps}', $this->data['titulo_secao_loja_apps'], $this->html);
         $this->html = str_replace('{subtitulo_secao_loja_apps}', $this->data['subtitulo_secao_loja_apps'], $this->html);
-        $this->html = str_replace('{imagem_secao_loja_apps}', $this->data['imagem_secao_loja_apps'], $this->html);
+
+        $nomeImagemLoja = $this->getNomeArquivo($this->data['imagem_secao_loja_apps']);
+        $this->html = str_replace(
+            '{nome_imagem_loja}',
+            $nomeFavicon ? '<small> Arquivo atual: ' . $nomeImagemLoja . '</small>' : '',
+            $this->html
+        );
+        $this->html = str_replace('{nome_imagem_loja}', $nomeImagemLoja, $this->html);
+
+
         $this->html = str_replace('{link_appstore}', $this->data['link_appstore'], $this->html);
-        $this->html = str_replace('{imagem_appstore}', $this->data['imagem_appstore'], $this->html);
+
+        $nomeImagemAppstore = $this->getNomeArquivo($this->data['imagem_appstore']);
+        $this->html = str_replace(
+            '{nome_imagem_appstore}',
+            $nomeImagemAppstore ? '<small> Arquivo atual: ' . $nomeImagemAppstore . '</small>' : '',
+            $this->html
+        );
+        $this->html = str_replace('{nome_imagem_appstore}', $nomeImagemAppstore, $this->html);
+
         $this->html = str_replace('{link_playstore}', $this->data['link_playstore'], $this->html);
-        $this->html = str_replace('{imagem_playstore}', $this->data['imagem_playstore'], $this->html);
+
+        $nomeImagemPlaystore = $this->getNomeArquivo($this->data['imagem_playstore']);
+        $this->html = str_replace(
+            '{nome_imagem_playstore}',
+            $nomeImagemPlaystore ? '<small> Arquivo atual: ' . $nomeImagemPlaystore . '</small>' : '',
+            $this->html
+        );
+        $this->html = str_replace('{nome_imagem_playstore}', $nomeImagemPlaystore, $this->html);
 
         $this->html = str_replace('{telefone_contato}', $this->data['telefone_contato'], $this->html);
 
-        $this->html = str_replace('{logo_rodape}', $this->data['logo_rodape'], $this->html);
+        $nomeLogoRodape = $this->getNomeArquivo($this->data['logo_rodape']);
+        $this->html = str_replace(
+            '{nome_logo_rodape}',
+            $nomeLogoRodape ? '<small> Arquivo atual: ' . $nomeLogoRodape . '</small>' : '',
+            $this->html
+        );
+        $this->html = str_replace('{nome_logo_rodape}', $nomeLogoRodape, $this->html);
+
+
         $this->html = str_replace('{mensagem_copyright}', $this->data['mensagem_copyright'], $this->html);
         $this->html = str_replace('{url_rodape}', $this->data['url_rodape'], $this->html);
         $this->html = str_replace('{mensagem_powered}', $this->data['mensagem_powered'], $this->html);

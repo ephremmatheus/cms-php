@@ -1,4 +1,5 @@
 <?php 
+session_start();
 $mensagem_sucesso = "";
 require_once __DIR__ . '/../classes/Database.php';
 
@@ -76,7 +77,7 @@ $testemunhos = $stmt3->fetchAll(PDO::FETCH_ASSOC);
    
     
 
-    <link rel="shortcut icon" href=<?php echo $pref['favicon']; ?>>
+    <link rel="shortcut icon" href="../<?php echo $pref['favicon']; ?>">
 
     <!-- Bootstrap css -->
     <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" id="bootstrap-style">
@@ -108,7 +109,7 @@ $testemunhos = $stmt3->fetchAll(PDO::FETCH_ASSOC);
             <!-- LOGO -->
             <a class="navbar-brand logo text-uppercase" href="../landpage">
                 <!--logo dinamica-->
-                <img src="<?php echo $pref['logo_cabecalho']; ?>" class="logo-dark" alt="" height="30">
+                <img src="../<?php echo $pref['logo_cabecalho']; ?>" class="logo-dark" alt="" height="30">
             </a>
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
@@ -206,7 +207,7 @@ $testemunhos = $stmt3->fetchAll(PDO::FETCH_ASSOC);
 
                                         <div class="row align-items-center">
                                             <div class="col-lg-6">
-                                                <img src="<?php echo $pref['imagem_secao_home']; ?>" alt="" class="img-fluid"
+                                                <img src="../<?php echo $pref['imagem_secao_home']; ?>" alt="" class="img-fluid"
                                                     style="animation: ani-bg 3s infinite;">
                                             </div>
 
@@ -408,12 +409,12 @@ $testemunhos = $stmt3->fetchAll(PDO::FETCH_ASSOC);
                         <div class="d-flex mt-4 ">
                             <div class="app-store">
                                 <a target="_blank" href="<?php echo $pref['link_appstore']; ?>">
-                                    <img src="<?php echo $pref['imagem_appstore']; ?>" alt="" class="img-fluid">
+                                    <img src="../<?php echo $pref['imagem_appstore']; ?>" alt="" class="img-fluid">
                                 </a>
                             </div>
                             <div class="googleplay">
                                 <a target="_blank" href="<?php echo $pref['link_playstore']; ?>">
-                                    <img src="<?php echo $pref['imagem_playstore']; ?>" alt="" class="img-fluid ms-3">
+                                    <img src="../<?php echo $pref['imagem_playstore']; ?>" alt="" class="img-fluid ms-3">
                                 </a>
                             </div>
                         </div>
@@ -421,7 +422,7 @@ $testemunhos = $stmt3->fetchAll(PDO::FETCH_ASSOC);
                 </div>
                 <div class="col-lg-6">
                     <div class="cta-phone-image">
-                        <img src="<?php echo $pref['imagem_secao_loja_apps']; ?>" alt="" style="height:600px;" class=" img-fluid">
+                        <img src="../<?php echo $pref['imagem_secao_loja_apps']; ?>" alt="" style="height:600px;" class=" img-fluid">
                     </div>
                 </div>
             </div>
@@ -549,7 +550,7 @@ $testemunhos = $stmt3->fetchAll(PDO::FETCH_ASSOC);
             <div class="row justify-content-center ">
                 <div class="col-lg-4">
                     <a class="navbar-brand logo text-uppercase" href="#">
-                        <img src="<?php echo $pref['logo_rodape']; ?>" class="logo-light" alt="" height="30">
+                        <img src="../<?php echo $pref['logo_rodape']; ?>" class="logo-light" alt="" height="30">
                     </a>
                     <p class="text-white-50 mt-2 mb-0"><?php echo $pref['mensagem_copyright']; ?></p>
                     <a href="<?php echo $pref['url_rodape']; ?>" target="_blank">
