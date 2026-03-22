@@ -407,13 +407,13 @@ $testemunhos = $stmt3->fetchAll(PDO::FETCH_ASSOC);
                         <p class="text-white-50 mt-3 f-18"><?php echo $pref['subtitulo_secao_loja_apps']; ?></p><br><br><br><br>
                         <div class="d-flex mt-4 ">
                             <div class="app-store">
-                                <a target="_blank" href="<?php echo $pref['imagem_appstore']; ?>">
-                                    <img src="images/img-appstore.png" alt="" class="img-fluid">
+                                <a target="_blank" href="<?php echo $pref['link_appstore']; ?>">
+                                    <img src="<?php echo $pref['imagem_appstore']; ?>" alt="" class="img-fluid">
                                 </a>
                             </div>
                             <div class="googleplay">
-                                <a target="_blank" href="<?php echo $pref['imagem_playstore']; ?>">
-                                    <img src="images/img-googleplay.png" alt="" class="img-fluid ms-3">
+                                <a target="_blank" href="<?php echo $pref['link_playstore']; ?>">
+                                    <img src="<?php echo $pref['imagem_playstore']; ?>" alt="" class="img-fluid ms-3">
                                 </a>
                             </div>
                         </div>
