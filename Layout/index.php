@@ -146,7 +146,7 @@ $testemunhos = $stmt3->fetchAll(PDO::FETCH_ASSOC);
 					</a>
                 </div>				
                 <div class="ms-auto">
-                    <a href="#" class="btn bg-gradiant" style="display: flex; align-items: center;"><i class="mdi mdi-account f-20 me-2"></i>Conecte-se</a>
+                    <a href="../admin/index.php" class="btn bg-gradiant" style="display: flex; align-items: center;"><i class="mdi mdi-account f-20 me-2"></i>Conecte-se</a>
                 </div>
             </div>
         </div>
