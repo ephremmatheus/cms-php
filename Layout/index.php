@@ -76,7 +76,7 @@ $testemunhos = $stmt3->fetchAll(PDO::FETCH_ASSOC);
    
     
 
-    <link rel="shortcut icon" href="images/favicon.png">
+    <link rel="shortcut icon" href=<?php echo $pref['favicon']; ?>>
 
     <!-- Bootstrap css -->
     <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" id="bootstrap-style">
@@ -453,7 +453,7 @@ $testemunhos = $stmt3->fetchAll(PDO::FETCH_ASSOC);
                         </div>
 
                         <div class="custom-form mt-4 ">
-                            <form method="post" action="index.php?action=contato">
+                            <form method="post" action="index.php?action=contato#contact">
                                 <?php if ($mensagem_sucesso == "incompleto"): ?>
                                     <div class="alert alert-warning">
                                         Por favor, preencha todos os campos.
