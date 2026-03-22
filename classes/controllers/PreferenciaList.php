@@ -42,6 +42,7 @@ class PreferenciaList
                     $item = str_replace('{id}', $preferencia['id'], $item);
 
                     $item = str_replace('{titulo_landing_page}', $preferencia['titulo_landing_page'], $item);
+                    $item = str_replace('{favicon}', $preferencia['favicon'], $item);
                     $item = str_replace('{logo_cabecalho}', $preferencia['logo_cabecalho'], $item);
 
                     $item = str_replace('{link_facebook}', $preferencia['link_facebook'], $item);
