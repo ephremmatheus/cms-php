@@ -33,7 +33,9 @@ class PreferenciaForm
                 'titulo_secao_loja_apps' => null,
                 'subtitulo_secao_loja_apps' => null,
                 'imagem_secao_loja_apps' => null,
+                'link_appstore' => null,
                 'imagem_appstore' => null,
+                'link_playstore' => null,
                 'imagem_playstore' => null,
                 'telefone_contato' => null,
                 'logo_rodape' => null,
@@ -106,7 +108,9 @@ class PreferenciaForm
         $this->html = str_replace('{titulo_secao_loja_apps}', $this->data['titulo_secao_loja_apps'], $this->html);
         $this->html = str_replace('{subtitulo_secao_loja_apps}', $this->data['subtitulo_secao_loja_apps'], $this->html);
         $this->html = str_replace('{imagem_secao_loja_apps}', $this->data['imagem_secao_loja_apps'], $this->html);
+        $this->html = str_replace('{link_appstore}', $this->data['link_appstore'], $this->html);
         $this->html = str_replace('{imagem_appstore}', $this->data['imagem_appstore'], $this->html);
+        $this->html = str_replace('{link_playstore}', $this->data['link_playstore'], $this->html);
         $this->html = str_replace('{imagem_playstore}', $this->data['imagem_playstore'], $this->html);
 
         $this->html = str_replace('{telefone_contato}', $this->data['telefone_contato'], $this->html);

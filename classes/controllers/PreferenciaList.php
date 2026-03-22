@@ -57,7 +57,9 @@ class PreferenciaList
                     $item = str_replace('{titulo_secao_loja_apps}', $preferencia['titulo_secao_loja_apps'], $item);
                     $item = str_replace('{subtitulo_secao_loja_apps}', $preferencia['subtitulo_secao_loja_apps'], $item);
                     $item = str_replace('{imagem_secao_loja_apps}', $preferencia['imagem_secao_loja_apps'], $item);
+                    $item = str_replace('{link_appstore}', $preferencia['link_appstore'], $item);
                     $item = str_replace('{imagem_appstore}', $preferencia['imagem_appstore'], $item);
+                    $item = str_replace('{link_playstore}', $preferencia['link_playstore'], $item);
                     $item = str_replace('{imagem_playstore}', $preferencia['imagem_playstore'], $item);
 
                     $item = str_replace('{telefone_contato}', $preferencia['telefone_contato'], $item);

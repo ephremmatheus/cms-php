@@ -16,6 +16,8 @@ CREATE TABLE preferencias (
     titulo_secao_loja_apps VARCHAR(255),
     subtitulo_secao_loja_apps VARCHAR(255),
     imagem_secao_loja_apps VARCHAR(255),
+    link_playtore VARCHAR(255),
+    link_appstore VARCHAR(255),
     imagem_appstore VARCHAR(255),
     imagem_playstore VARCHAR(255),
 
