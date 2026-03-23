@@ -46,8 +46,18 @@ class TestemunhoList
                     $item = str_replace('{funcao}', $testemunho['funcao'], $item);
                     $item = str_replace('{titulo}', $testemunho['titulo'], $item);
                     $item = str_replace('{descricao}', $testemunho['descricao'], $item);
-                    $item = str_replace('{foto}', $testemunho['foto'], $item);
-                    $item = str_replace('{imagem_fundo}', $testemunho['imagem_fundo'], $item);
+
+                    $foto = '';
+                    if (!empty($testemunho['foto'])) {
+                        $foto = '<img src="../' . $testemunho['foto'] . '" width="50" height="50">';
+                    }
+                    $item = str_replace('{foto}', $foto, $item);
+
+                    $imagemFundo = '';
+                    if (!empty($testemunho['imagem_fundo'])) {
+                        $imagemFundo = '<img src="../' . $testemunho['imagem_fundo'] . '" width="50" height="50">';
+                    }
+                    $item = str_replace('{imagem_fundo}', $imagemFundo, $item);
 
                     $items .= $item;
                 }
@@ -61,6 +71,15 @@ class TestemunhoList
     }
     public function show()
     {
+        $mensagemHtml = '';
+
+        if (!empty($_SESSION['mensagem'])) {
+            $mensagemHtml = '<div class="alert alert-danger">' . $_SESSION['mensagem'] . '</div>';
+            unset($_SESSION['mensagem']);
+        }
+
+        $this->html = str_replace('{mensagem}', $mensagemHtml, $this->html);
+
         $this->load();
         print $this->html;
     }

@@ -1,4 +1,5 @@
 <?php 
+session_start();
 $mensagem_sucesso = "";
 require_once __DIR__ . '/../classes/Database.php';
 
