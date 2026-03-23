@@ -28,13 +28,17 @@
     </div>
 
     <div class="mb-3">
-        <label class="form-label">Foto (URL)</label>
-        <input name="foto" class="form-control" value="{foto}" required>
+      <label class="form-label">Foto</label>
+      {nome_foto}
+      <input type="file" name="foto" class="form-control" value="{foto}"/>
+      <small>Deixe vazio para manter a imagem atual</small>
     </div>
 
     <div class="mb-3">
-        <label class="form-label">Imagem de Fundo (URL)</label>
-        <input name="imagem_fundo" class="form-control" value="{imagem_fundo}" required>
+      <label class="form-label">Imagem de Fundo</label>
+      {nome_imagem_fundo}
+      <input type="file" name="imagem_fundo" class="form-control" value="{imagem_fundo}"/>
+      <small>Deixe vazio para manter a imagem atual</small>
     </div>
 
     <div class="d-grid">
