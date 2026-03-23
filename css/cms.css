@@ -502,3 +502,40 @@ body {
 .table tbody tr td * {
     color: #1E293B !important;
 }
+
+/* ===== TELA DE LOGIN / REGISTRO ===== */
+
+/* fundo da página de login */
+body.login-page,
+body {
+    background: linear-gradient(135deg, #0F172A, #1E293B) !important;
+}
+
+/* campo de senha com preenchimento automático amarelo */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0px 1000px #0F172A inset !important;
+    -webkit-text-fill-color: #E2E8F0 !important;
+    border-color: #2563EB !important;
+}
+
+/* botão de visualizar senha */
+.input-group-text {
+    background: #0F172A !important;
+    border: 1.5px solid rgba(255, 255, 255, 0.1) !important;
+    border-left: none !important;
+    color: #94A3B8 !important;
+    border-radius: 0 10px 10px 0 !important;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.input-group-text:hover {
+    color: #E2E8F0 !important;
+}
+
+.input-group .form-control {
+    border-right: none !important;
+    border-radius: 10px 0 0 10px !important;
+}
