@@ -352,14 +352,14 @@ $testemunhos = $stmt3->fetchAll(PDO::FETCH_ASSOC);
                                 <div class="testi-box position-relative overflow-hidden">
                                     <div class="row align-items-center">
                                         <div class="col-md-5">
-                                            <img src="<?php echo $t['imagem_fundo']; ?>" alt="" class="img-fluid">
+                                            <img src="../<?php echo $t['imagem_fundo']; ?>" alt="" class="img-fluid">
                                         </div>
                                         <div class="col-md-7">
                                             <div class="p-4">
                                                 <div class="d-flex align-items-center">
                                                     <div class="flex-shrink-0">
                                                         <div class="avatar">
-                                                            <img src="<?php echo $t['foto']; ?>" alt="" class="img-fluid rounded-circle">
+                                                            <img src="../<?php echo $t['foto']; ?>" alt="" class="img-fluid rounded-circle">
                                                         </div>
                                                     </div>
                                                     <div class="flex-grow-1 ms-3">
