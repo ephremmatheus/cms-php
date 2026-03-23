@@ -503,15 +503,12 @@ body {
     color: #1E293B !important;
 }
 
-/* ===== TELA DE LOGIN / REGISTRO ===== */
 
-/* fundo da página de login */
 body.login-page,
 body {
     background: linear-gradient(135deg, #0F172A, #1E293B) !important;
 }
 
-/* campo de senha com preenchimento automático amarelo */
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus {
@@ -520,7 +517,6 @@ input:-webkit-autofill:focus {
     border-color: #2563EB !important;
 }
 
-/* botão de visualizar senha */
 .input-group-text {
     background: #0F172A !important;
     border: 1.5px solid rgba(255, 255, 255, 0.1) !important;
