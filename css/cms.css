@@ -1,0 +1,504 @@
+/* ===========================
+   IMPORTS & RESET
+=========================== */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* ===========================
+   BASE
+=========================== */
+body {
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+    background-color: #0F172A;
+    color: #E2E8F0;
+    min-height: 100vh;
+}
+
+/* ===========================
+   SCROLLBAR
+=========================== */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: #0F172A;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #2563EB;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #1E40AF;
+}
+
+/* ===========================
+   HEADER
+=========================== */
+header {
+    background: #1E293B !important;
+    border-bottom: 1px solid rgba(37, 99, 235, 0.3) !important;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4) !important;
+    height: 68px;
+    padding: 0 32px !important;
+    backdrop-filter: blur(10px);
+}
+
+header h4 {
+    font-size: 20px !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.5px;
+    background: linear-gradient(135deg, #2563EB, #22C55E);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+header a:hover h4 {
+    opacity: 0.85;
+    -webkit-text-fill-color: transparent !important;
+}
+
+header .btn-light {
+    background: rgba(37, 99, 235, 0.15) !important;
+    border: 1px solid rgba(37, 99, 235, 0.4) !important;
+    color: #E2E8F0 !important;
+    border-radius: 10px !important;
+    font-weight: 500 !important;
+    font-size: 13px !important;
+    transition: all 0.2s !important;
+}
+
+header .btn-light:hover {
+    background: rgba(37, 99, 235, 0.3) !important;
+    transform: translateY(-1px) !important;
+}
+
+/* ===========================
+   BOTÃO MENU
+=========================== */
+.btn-menu {
+    background: linear-gradient(135deg, #2563EB, #1E40AF) !important;
+    border: none !important;
+    border-radius: 12px !important;
+    padding: 10px 22px !important;
+    font-weight: 600 !important;
+    font-size: 14px !important;
+    letter-spacing: 0.3px;
+    box-shadow: 0 4px 20px rgba(37, 99, 235, 0.35) !important;
+    transition: all 0.25s !important;
+}
+
+.btn-menu:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 28px rgba(37, 99, 235, 0.5) !important;
+}
+
+/* ===========================
+   MENU LATERAL
+=========================== */
+.offcanvas {
+    background: #1E293B !important;
+    border-right: 1px solid rgba(37, 99, 235, 0.2) !important;
+    width: 260px !important;
+    box-shadow: 8px 0 40px rgba(0, 0, 0, 0.5) !important;
+}
+
+.offcanvas-header {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
+    padding: 24px 20px !important;
+}
+
+.offcanvas-header h5 {
+    font-weight: 800 !important;
+    font-size: 11px !important;
+    letter-spacing: 2px !important;
+    text-transform: uppercase !important;
+    color: #94A3B8 !important;
+}
+
+.btn-close-white {
+    opacity: 0.4 !important;
+    transition: opacity 0.2s !important;
+}
+
+.btn-close-white:hover {
+    opacity: 1 !important;
+}
+
+.offcanvas-body {
+    padding: 12px 10px !important;
+}
+
+.list-group-item {
+    background: transparent !important;
+    border: none !important;
+    border-radius: 10px !important;
+    margin: 2px 0 !important;
+    padding: 11px 16px !important;
+    transition: all 0.2s !important;
+    position: relative;
+}
+
+.list-group-item::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 3px;
+    height: 0;
+    background: linear-gradient(180deg, #2563EB, #22C55E);
+    border-radius: 0 3px 3px 0;
+    transition: height 0.2s;
+}
+
+.list-group-item:hover::before {
+    height: 60%;
+}
+
+.list-group-item:hover {
+    background: rgba(37, 99, 235, 0.12) !important;
+    transform: translateX(4px) !important;
+}
+
+.list-group-item a {
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    color: #94A3B8 !important;
+    text-decoration: none !important;
+    letter-spacing: 0.2px;
+    transition: color 0.2s !important;
+}
+
+.list-group-item:hover a {
+    color: #E2E8F0 !important;
+}
+
+/* ===========================
+   CONTAINER PRINCIPAL
+=========================== */
+.container.mt-4 {
+    padding: 24px !important;
+}
+
+/* ===========================
+   CARD PRINCIPAL
+=========================== */
+.card {
+    background: #1E293B !important;
+    border: 1px solid rgba(255, 255, 255, 0.06) !important;
+    border-radius: 20px !important;
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.3) !important;
+    color: #E2E8F0 !important;
+}
+
+.card h4 {
+    font-weight: 700 !important;
+    font-size: 18px !important;
+    color: #E2E8F0 !important;
+}
+
+/* ===========================
+   CARDS DO DASHBOARD
+=========================== */
+.p-3.bg-light {
+    background: #0F172A !important;
+    border: 1px solid rgba(37, 99, 235, 0.2) !important;
+    border-radius: 16px !important;
+    transition: all 0.25s !important;
+    cursor: default;
+    position: relative;
+    overflow: hidden;
+}
+
+.p-3.bg-light::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #2563EB, #22C55E);
+    border-radius: 16px 16px 0 0;
+    opacity: 0;
+    transition: opacity 0.25s;
+}
+
+.p-3.bg-light:hover::after {
+    opacity: 1;
+}
+
+.p-3.bg-light:hover {
+    transform: translateY(-5px) !important;
+    border-color: rgba(37, 99, 235, 0.5) !important;
+    box-shadow: 0 16px 40px rgba(37, 99, 235, 0.15) !important;
+}
+
+.p-3.bg-light h5 {
+    font-size: 15px !important;
+    font-weight: 700 !important;
+    color: #E2E8F0 !important;
+    margin-bottom: 8px !important;
+}
+
+.p-3.bg-light p {
+    font-size: 13px !important;
+    color: #94A3B8 !important;
+    line-height: 1.6 !important;
+}
+
+/* ===========================
+   TEXTO GERAL NO CARD
+=========================== */
+.card p,
+.card span,
+.card td,
+.card th,
+.card label {
+    color: #E2E8F0 !important;
+}
+
+.text-muted {
+    color: #94A3B8 !important;
+}
+
+/* ===========================
+   TABELAS
+=========================== */
+.table-responsive {
+    border-radius: 14px !important;
+    overflow: hidden !important;
+    border: 1px solid rgba(255, 255, 255, 0.06) !important;
+}
+
+.table {
+    margin-bottom: 0 !important;
+    background: transparent !important;
+}
+
+.table thead th {
+    background: #0F172A !important;
+    color: #94A3B8 !important;
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.08em !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+    padding: 16px 18px !important;
+    white-space: nowrap;
+}
+
+.table tbody tr {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04) !important;
+    transition: all 0.15s !important;
+}
+
+.table tbody tr:hover {
+    background: rgba(37, 99, 235, 0.08) !important;
+}
+
+.table tbody td {
+    padding: 14px 18px !important;
+    vertical-align: middle !important;
+    color: #CBD5E1 !important;
+    font-size: 14px !important;
+    border: none !important;
+}
+
+/* ===========================
+   BOTÕES PRINCIPAIS
+=========================== */
+.btn-primary,
+.btn-custom.bg-primary {
+    background: linear-gradient(135deg, #2563EB, #1E40AF) !important;
+    border: none !important;
+    border-radius: 10px !important;
+    padding: 10px 24px !important;
+    font-weight: 600 !important;
+    font-size: 14px !important;
+    letter-spacing: 0.3px !important;
+    box-shadow: 0 4px 16px rgba(37, 99, 235, 0.35) !important;
+    transition: all 0.25s !important;
+    color: #fff !important;
+}
+
+.btn-primary:hover,
+.btn-custom.bg-primary:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 24px rgba(37, 99, 235, 0.5) !important;
+    background: linear-gradient(135deg, #1E40AF, #2563EB) !important;
+}
+
+/* ===========================
+   BOTÕES OUTLINE
+=========================== */
+.btn-outline-primary {
+    border: 1.5px solid #2563EB !important;
+    color: #2563EB !important;
+    border-radius: 8px !important;
+    font-weight: 500 !important;
+    font-size: 13px !important;
+    transition: all 0.2s !important;
+    background: transparent !important;
+}
+
+.btn-outline-primary:hover {
+    background: rgba(37, 99, 235, 0.15) !important;
+    transform: translateY(-1px) !important;
+    color: #60A5FA !important;
+    border-color: #60A5FA !important;
+}
+
+.btn-outline-danger {
+    border: 1.5px solid #EF4444 !important;
+    color: #EF4444 !important;
+    border-radius: 8px !important;
+    font-weight: 500 !important;
+    font-size: 13px !important;
+    transition: all 0.2s !important;
+    background: transparent !important;
+}
+
+.btn-outline-danger:hover {
+    background: rgba(239, 68, 68, 0.15) !important;
+    transform: translateY(-1px) !important;
+}
+
+/* ===========================
+   MODAL
+=========================== */
+.modal-content {
+    background: #1E293B !important;
+    border: 1px solid rgba(37, 99, 235, 0.3) !important;
+    border-radius: 20px !important;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6) !important;
+    overflow: hidden !important;
+    color: #E2E8F0 !important;
+}
+
+.modal-header {
+    background: linear-gradient(135deg, #2563EB, #1E40AF) !important;
+    border-bottom: none !important;
+    padding: 22px 28px !important;
+}
+
+.modal-title {
+    font-weight: 700 !important;
+    font-size: 16px !important;
+    color: #fff !important;
+}
+
+.modal-body {
+    background: #1E293B !important;
+    padding: 28px !important;
+}
+
+.modal-backdrop {
+    background-color: #000 !important;
+    opacity: 0.7 !important;
+}
+
+/* ===========================
+   FORMULÁRIOS
+=========================== */
+.form-control {
+    background: #0F172A !important;
+    border: 1.5px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 10px !important;
+    padding: 12px 16px !important;
+    font-size: 14px !important;
+    color: #E2E8F0 !important;
+    transition: all 0.2s !important;
+}
+
+.form-control:focus {
+    border-color: #2563EB !important;
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.15) !important;
+    background: #0F172A !important;
+    color: #E2E8F0 !important;
+}
+
+.form-control[readonly] {
+    background: #0a1020 !important;
+    color: #475569 !important;
+    cursor: not-allowed;
+}
+
+.form-label {
+    font-weight: 600 !important;
+    font-size: 12px !important;
+    color: #94A3B8 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.06em !important;
+    margin-bottom: 8px !important;
+}
+
+
+.spinner-border {
+    color: #2563EB !important;
+}
+
+.text-primary {
+    color: #60A5FA !important;
+}
+
+.fw-bold.text-primary {
+    background: linear-gradient(135deg, #2563EB, #22C55E);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+hr {
+    border-color: rgba(255, 255, 255, 0.06) !important;
+}
+
+/* ===========================
+   ALERTAS
+=========================== */
+.alert-success {
+    background: rgba(34, 197, 94, 0.12) !important;
+    border: 1px solid rgba(34, 197, 94, 0.3) !important;
+    color: #22C55E !important;
+    border-radius: 10px !important;
+}
+
+.alert-warning {
+    background: rgba(234, 179, 8, 0.12) !important;
+    border: 1px solid rgba(234, 179, 8, 0.3) !important;
+    color: #EAB308 !important;
+    border-radius: 10px !important;
+}
+
+.shadow {
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.3) !important;
+}
+
+html,
+body {
+    background-color: #0F172A !important;
+}
+
+.container-fluid {
+    background-color: #0F172A !important;
+}
+
+.table tbody td {
+    color: #1E293B !important;
+}
+
+.table tbody tr td,
+.table tbody tr td * {
+    color: #1E293B !important;
+}
