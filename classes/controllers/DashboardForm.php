@@ -23,8 +23,9 @@ class DashboardForm
         $totalCaracteristicas = $conn->query("SELECT COUNT(*) FROM caracteristicas_home")->fetchColumn();
         $totalTestemunhos     = $conn->query("SELECT COUNT(*) FROM testemunhos")->fetchColumn();
         $totalMensagens       = $conn->query("SELECT COUNT(*) FROM mensagens_contato")->fetchColumn();
+        
 
-        // 🔐 menu usuarios
+        // menu usuarios
         if ($_SESSION['usuario_id'] == 1) {
             $menuUsuarios = '
                 <li class="list-group-item">
@@ -65,6 +66,12 @@ class DashboardForm
                 $conteudo = ob_get_clean();
             } else if ($pagina == 'contatoList') {
                 $controller = new ContatoList();
+                ob_start();
+                $controller->show();
+                $conteudo = ob_get_clean();
+            } else if ($pagina == 'caracteristicaAppList') {
+                // carrega o controller de características do aplicativo
+                $controller = new CaracteristicasAppList();
                 ob_start();
                 $controller->show();
                 $conteudo = ob_get_clean();
